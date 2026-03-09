@@ -160,7 +160,13 @@ const SERVICES = [
         accent: '#3198D8',
         img: 'invisalign.jpg',
         desc1: 'Invisalign offers a modern, nearly invisible way to correct misaligned teeth without the hassle of traditional metal braces. The custom-made, removable aligners make it easier to maintain your oral hygiene while undergoing treatment.',
-        desc2: 'With regular changes of your aligners and occasional dental visits, you can achieve a beautifully straight smile in less time and with more comfort compared to conventional braces.'
+        desc2: 'With regular changes of your aligners and occasional dental visits, you can achieve a beautifully straight smile in less time and with more comfort compared to conventional braces.',
+        isNew: true,
+        features: [
+            { title: "Virtually Invisible", desc: "Clear aligners that people won't notice" },
+            { title: "Comfortable Fit", desc: "Smooth, BPA-free plastic with no irritation" },
+            { title: "Fast Results", desc: "See changes in as little as 18 months" }
+        ]
     },
     {
         id: 'root-canal',
@@ -299,6 +305,7 @@ function renderServices() {
             <div class="h-48 overflow-hidden relative">
                 <img src="${svc.img}" alt="${svc.name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                 <div class="absolute inset-0 bg-gradient-to-t from-dark/20 to-transparent"></div>
+                ${svc.isNew ? '<div class="absolute top-4 right-4 z-10"><span class="absolute -inset-1 rounded-lg bg-red-500 opacity-40 animate-ping"></span><span class="relative inline-flex items-center text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-lg text-white bg-red-600 shadow-lg"><i data-lucide="zap" class="w-3 h-3 mr-1"></i>NEW</span></div>' : ''}
                 <div class="absolute top-4 left-4">
                     <span class="text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded-lg text-white backdrop-blur-md bg-white/20 border border-white/30">
                         ${svc.category}
@@ -340,11 +347,21 @@ function openServiceModal(index) {
     document.getElementById('modal-title').textContent = svc.name;
     document.getElementById('modal-badge').textContent = svc.category;
     document.getElementById('modal-desc1').textContent = svc.desc1;
-    document.getElementById('modal-desc2').textContent = svc.desc2;
+
+    let desc2Html = svc.desc2;
+    if (svc.features) {
+        desc2Html += '<div class="mt-6 bg-gray-50 p-5 rounded-2xl border border-gray-100"><h5 class="font-bold text-dark text-sm uppercase tracking-wider mb-4 flex items-center gap-2"><i data-lucide="info" class="w-4 h-4 text-pinnacle"></i> More Information</h5><ul class="space-y-3">';
+        svc.features.forEach(f => {
+            desc2Html += '<li class="flex items-start gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-seafoam shrink-0 mt-0.5"></i><div><span class="font-bold text-dark text-sm">' + f.title + '</span><p class="text-sm text-gray-500 mt-0.5">' + f.desc + '</p></div></li>';
+        });
+        desc2Html += '</ul></div>';
+    }
+    document.getElementById('modal-desc2').innerHTML = desc2Html;
 
     modal.classList.remove('hidden');
     modal.classList.add('flex');
     document.body.style.overflow = 'hidden';
+    lucide.createIcons();
 }
 
 function closeServiceModal() {
