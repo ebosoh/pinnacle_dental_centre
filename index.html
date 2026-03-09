@@ -249,46 +249,289 @@
 
 
     <!-- About Section -->
-    <section id="about" class="py-24">
+    <section id="about" class="py-24 bg-mesh-gradient relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-pinnacle/5 rounded-full blur-[120px] -z-10"></div>
+        <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-seafoam/5 rounded-full blur-[120px] -z-10"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-2 gap-16 items-center">
-                <div class="relative">
+            <!-- Part 1: Intro with Jane -->
+            <div class="grid md:grid-cols-2 gap-16 items-center mb-24">
+                <div class="relative order-2 md:order-1">
                     <div class="absolute -top-10 -left-10 w-40 h-40 bg-pinnacle/10 rounded-full blur-3xl"></div>
-                    <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=1780&auto=format&fit=crop"
-                        alt="Clinical Excellence"
-                        class="rounded-3xl shadow-2xl relative z-10 w-full aspect-square object-cover">
+                    <img src="jane.jpg" alt="Dr. Jane Nzuve"
+                        class="rounded-3xl shadow-2xl relative z-10 w-full aspect-[4/5] object-cover">
                     <div
-                        class="absolute -right-6 -bottom-6 bg-white p-8 rounded-2xl shadow-xl z-20 hidden md:block border border-gray-100 italic font-medium">
-                        "Excellence is not an act, but a habit."
+                        class="absolute -right-6 -bottom-6 bg-white p-8 rounded-2xl shadow-xl z-20 hidden md:block border border-gray-100">
+                        <p class="text-pinnacle font-bold text-xl mb-1">Dr. Jane Nzuve</p>
+                        <p class="text-gray-500 text-sm">Lead Surgeon</p>
                     </div>
                 </div>
-                <div>
-                    <h2 class="text-4xl md:text-5xl font-premium font-bold mb-8 leading-tight">A Legacy of <span
-                            class="text-pinnacle">Excellence</span> at Sarit Centre.</h2>
+                <div class="order-1 md:order-2">
+                    <p class="text-seafoam font-bold uppercase tracking-[0.3em] text-sm mb-3">Our Core</p>
+                    <h2 class="text-4xl md:text-5xl font-premium font-bold mb-8 leading-tight">The Pinnacle Dental
+                        Center</h2>
                     <p class="text-gray-600 text-lg leading-relaxed mb-6">
-                        Pinnacle Dental Centre is more than just a dental clinic; it's a sanctuary for oral health and
-                        aesthetic transformation. Located in the heart of Westlands at Sarit Centre, we have spent over
-                        a decade perfecting the art of painless dentistry.
+                        We prioritize your comfort and satisfaction, providing personalized care in a friendly and
+                        welcoming environment. Trust us to transform your dental experience and leave you with a healthy
+                        and radiant smile.
                     </p>
-                    <p class="text-gray-600 text-lg leading-relaxed mb-10">
-                        Our state-of-the-art facility is equipped with the latest diagnostic and imaging equipment,
-                        ensuring precision in every procedure—from routine cleanings to complex reconstructive surgery.
-                    </p>
-                    <ul class="space-y-4 mb-10">
-                        <li class="flex items-center gap-3 text-lg font-medium">
-                            <i data-lucide="check-circle" class="text-seafoam"></i> State-of-the-Art Modern Facility
-                        </li>
-                        <li class="flex items-center gap-3 text-lg font-medium">
-                            <i data-lucide="check-circle" class="text-seafoam"></i> Personalized, Painless Care
-                        </li>
-                        <li class="flex items-center gap-3 text-lg font-medium">
-                            <i data-lucide="check-circle" class="text-seafoam"></i> Located at Sarit Centre, Westlands
-                        </li>
-                    </ul>
-                    <a href="#services"
-                        class="inline-flex items-center gap-2 text-pinnacle font-bold text-lg hover:underline">
-                        Explore Our Approach <i data-lucide="arrow-right" class="w-5 h-5"></i>
-                    </a>
+                    <div class="grid grid-cols-2 gap-6 mt-10">
+                        <div
+                            class="flex items-start gap-4 p-4 rounded-2xl bg-soft-gray border border-gray-100 hover:shadow-md transition-all">
+                            <div class="w-10 h-10 bg-pinnacle/10 rounded-xl flex items-center justify-center shrink-0">
+                                <i data-lucide="heart" class="text-pinnacle w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-dark">Personal Touch</h4>
+                                <p class="text-xs text-gray-500 mt-1">Regelialia for clinical excellence.</p>
+                            </div>
+                        </div>
+                        <div
+                            class="flex items-start gap-4 p-4 rounded-2xl bg-soft-gray border border-gray-100 hover:shadow-md transition-all">
+                            <div class="w-10 h-10 bg-seafoam/10 rounded-xl flex items-center justify-center shrink-0">
+                                <i data-lucide="award" class="text-seafoam w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-dark">Expert Dentists</h4>
+                                <p class="text-xs text-gray-500 mt-1">Qualified specialized professionals.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Part 2: What We Do & Core Values -->
+            <div class="mb-24">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2 class="text-4xl font-premium font-bold mb-6">What We Do</h2>
+                    <p class="text-gray-500 text-lg">We are committed to delivering comprehensive dental solutions built
+                        on a foundation of excellence and empathy.</p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+                    <!-- Values -->
+                    <div
+                        class="premium-glass-card glow-pinnacle group p-8 rounded-[2rem] text-center hover:bg-pinnacle transition-all duration-500">
+                        <div
+                            class="w-14 h-14 bg-pinnacle/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-white/20 transition-all">
+                            <i data-lucide="shield-check" class="text-pinnacle group-hover:text-white w-6 h-6"></i>
+                        </div>
+                        <h4 class="font-bold text-sm tracking-wide group-hover:text-white">Professionalism</h4>
+                    </div>
+                    <div
+                        class="premium-glass-card glow-seafoam group p-8 rounded-[2rem] text-center hover:bg-seafoam transition-all duration-500">
+                        <div
+                            class="w-14 h-14 bg-seafoam/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-white/20 transition-all">
+                            <i data-lucide="users" class="text-seafoam group-hover:text-white w-6 h-6"></i>
+                        </div>
+                        <h4 class="font-bold text-sm tracking-wide group-hover:text-white">Teamwork</h4>
+                    </div>
+                    <div
+                        class="premium-glass-card glow-pinnacle group p-8 rounded-[2rem] text-center hover:bg-pinnacle transition-all duration-500">
+                        <div
+                            class="w-14 h-14 bg-pinnacle/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-white/20 transition-all">
+                            <i data-lucide="gem" class="text-pinnacle group-hover:text-white w-6 h-6"></i>
+                        </div>
+                        <h4 class="font-bold text-sm tracking-wide group-hover:text-white">Integrity</h4>
+                    </div>
+                    <div
+                        class="premium-glass-card glow-seafoam group p-8 rounded-[2rem] text-center hover:bg-seafoam transition-all duration-500">
+                        <div
+                            class="w-14 h-14 bg-seafoam/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-white/20 transition-all">
+                            <i data-lucide="heart-handshake" class="text-seafoam group-hover:text-white w-6 h-6"></i>
+                        </div>
+                        <h4 class="font-bold text-sm tracking-wide group-hover:text-white">Compassion</h4>
+                    </div>
+                    <div
+                        class="premium-glass-card glow-pinnacle group p-8 rounded-[2rem] text-center hover:bg-pinnacle transition-all duration-500">
+                        <div
+                            class="w-14 h-14 bg-pinnacle/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-white/20 transition-all">
+                            <i data-lucide="star" class="text-pinnacle group-hover:text-white w-6 h-6"></i>
+                        </div>
+                        <h4 class="font-bold text-sm tracking-wide group-hover:text-white">Excellence</h4>
+                    </div>
+                    <div
+                        class="premium-glass-card glow-seafoam group p-8 rounded-[2rem] text-center hover:bg-seafoam transition-all duration-500">
+                        <div
+                            class="w-14 h-14 bg-seafoam/10 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-white/20">
+                            <i data-lucide="user-check" class="text-seafoam group-hover:text-white w-6 h-6"></i>
+                        </div>
+                        <h4 class="font-bold text-sm tracking-wide group-hover:text-white">Respect</h4>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Part 3: Mission & Vision -->
+            <div class="relative rounded-[3rem] overflow-hidden bg-dark text-white p-12 lg:p-20 mission-mesh">
+                <div class="absolute inset-0 z-0">
+                    <img src="mission.jpg" alt="Our Mission" class="w-full h-full object-cover opacity-10">
+                    <div class="absolute inset-0 bg-gradient-to-r from-dark via-dark/70 to-transparent"></div>
+                </div>
+                <div class="relative z-10 grid md:grid-cols-2 gap-16">
+                    <div>
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-12 h-12 bg-pinnacle/20 rounded-2xl flex items-center justify-center">
+                                <i data-lucide="target" class="text-pinnacle"></i>
+                            </div>
+                            <h3 class="text-3xl font-premium font-bold">Our Mission</h3>
+                        </div>
+                        <p class="text-gray-300 text-lg mb-8">To provide specialised Dental Service focused on improving
+                            our clients oral health through:</p>
+                        <ul class="space-y-4">
+                            <li class="flex items-center gap-3">
+                                <div class="w-2 h-2 rounded-full bg-seafoam"></div>
+                                <span>Oral Health Education</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <div class="w-2 h-2 rounded-full bg-seafoam"></div>
+                                <span>Preventative Dentistry</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <div class="w-2 h-2 rounded-full bg-seafoam"></div>
+                                <span>Advanced Dental Procedures</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-12 h-12 bg-seafoam/20 rounded-2xl flex items-center justify-center">
+                                <i data-lucide="eye" class="text-seafoam"></i>
+                            </div>
+                            <h3 class="text-3xl font-premium font-bold">Our Vision</h3>
+                        </div>
+                        <p class="text-gray-300 text-lg leading-relaxed">
+                            To be a leading dental health care facility providing world-class, modern and effective
+                            dental solutions to the people of Kenya and beyond.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Part 4: Features Summary -->
+            <div class="grid md:grid-cols-4 gap-8 mt-24">
+            </div>
+
+            <!-- Part 5: Staff Section -->
+            <div class="mt-32 relative">
+                <div
+                    class="absolute -top-24 left-1/2 -translate-x-1/2 w-full h-full bg-pinnacle/5 blur-[100px] -z-10 rounded-full max-w-4xl">
+                </div>
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <p class="text-seafoam font-bold uppercase tracking-[0.3em] text-sm mb-3">Our Team</p>
+                    <h2 class="text-4xl md:text-5xl font-premium font-bold mb-6">Our Qualified Staff and Doctors</h2>
+                    <p class="text-gray-500 text-lg">Meet our team of experienced and dedicated professionals who are
+                        dedicated to providing the best dental care for all our patients.</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Dr. Jane Nzuve -->
+                    <div
+                        class="staff-card-glow group relative overflow-hidden rounded-[2.5rem] bg-white shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100">
+                        <div class="aspect-[3/4] overflow-hidden">
+                            <img src="jane.jpg" alt="Dr. Jane Nzuve"
+                                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        </div>
+                        <div class="p-6 text-center">
+                            <h4
+                                class="text-xl font-premium font-bold text-dark group-hover:text-pinnacle transition-colors">
+                                Dr. Jane Nzuve</h4>
+                            <p class="text-pinnacle text-sm font-medium mb-1 uppercase tracking-wide">Orthodontist &
+                                Implantologist</p>
+                            <p class="text-gray-500 text-xs italic">Cosmetic Dentist</p>
+                        </div>
+                    </div>
+
+                    <!-- Dr Tanya Shah -->
+                    <div
+                        class="staff-card-glow group relative overflow-hidden rounded-[2.5rem] bg-white shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100">
+                        <div class="aspect-[3/4] overflow-hidden">
+                            <img src="tanya.jpg" alt="Dr Tanya Shah"
+                                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        </div>
+                        <div class="p-6 text-center">
+                            <h4
+                                class="text-xl font-premium font-bold text-dark group-hover:text-seafoam transition-colors">
+                                Dr Tanya Shah</h4>
+                            <p class="text-seafoam text-sm font-medium mb-1 uppercase tracking-wide">Facial Esthetic</p>
+                            <p class="text-gray-500 text-xs italic">Pediatric Dentist</p>
+                        </div>
+                    </div>
+
+                    <!-- Isabella Mwemba -->
+                    <div
+                        class="staff-card-glow group relative overflow-hidden rounded-[2.5rem] bg-white shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100">
+                        <div class="aspect-[3/4] overflow-hidden">
+                            <img src="isabela.jpg" alt="Isabella Mwemba"
+                                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        </div>
+                        <div class="p-6 text-center">
+                            <h4
+                                class="text-xl font-premium font-bold text-dark group-hover:text-pinnacle transition-colors">
+                                Isabella Mwemba</h4>
+                            <p class="text-pinnacle text-sm font-medium mb-1 uppercase tracking-wide">Chief Nurse</p>
+                        </div>
+                    </div>
+
+                    <!-- Teresa Ogutu -->
+                    <div
+                        class="staff-card-glow group relative overflow-hidden rounded-[2.5rem] bg-white shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100">
+                        <div class="aspect-[3/4] overflow-hidden">
+                            <img src="teresa.jpg" alt="Teresa Ogutu"
+                                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        </div>
+                        <div class="p-6 text-center">
+                            <h4
+                                class="text-xl font-premium font-bold text-dark group-hover:text-seafoam transition-colors">
+                                Teresa Ogutu</h4>
+                            <p class="text-seafoam text-sm font-medium mb-1 uppercase tracking-wide">Front Office Admin
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Edna Chepwogen -->
+                    <div
+                        class="staff-card-glow group relative overflow-hidden rounded-[2.5rem] bg-white shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100">
+                        <div class="aspect-[3/4] overflow-hidden">
+                            <img src="edna.jpg" alt="Edna Chepwogen"
+                                class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110">
+                        </div>
+                        <div class="p-6 text-center">
+                            <h4
+                                class="text-xl font-premium font-bold text-dark group-hover:text-pinnacle transition-colors">
+                                Edna Chepwogen</h4>
+                            <p class="text-pinnacle text-sm font-medium mb-1 uppercase tracking-wide">House Keeping</p>
+                        </div>
+                    </div>
+
+                    <!-- Murtadha Billal -->
+                    <div
+                        class="staff-card-glow group relative overflow-hidden rounded-[2.5rem] bg-white shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100">
+                        <div class="aspect-[3/4] overflow-hidden">
+                            <img src="bilala.jpg" alt="Murtadha Billal"
+                                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        </div>
+                        <div class="p-6 text-center">
+                            <h4
+                                class="text-xl font-premium font-bold text-dark group-hover:text-seafoam transition-colors">
+                                Murtadha Billal</h4>
+                            <p class="text-seafoam text-sm font-medium mb-1 uppercase tracking-wide">Business
+                                Administration</p>
+                        </div>
+                    </div>
+
+                    <!-- Naomi Rambira -->
+                    <div
+                        class="staff-card-glow group relative overflow-hidden rounded-[2.5rem] bg-white shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100">
+                        <div class="aspect-[3/4] overflow-hidden">
+                            <img src="naomi.jpg" alt="Naomi Rambira"
+                                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        </div>
+                        <div class="p-6 text-center">
+                            <h4
+                                class="text-xl font-premium font-bold text-dark group-hover:text-pinnacle transition-colors">
+                                Naomi Rambira</h4>
+                            <p class="text-pinnacle text-sm font-medium mb-1 uppercase tracking-wide">Dental Assistant
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
