@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pinnacle Dental Centre | Luxury Dentistry at Sarit Centre</title>
+    <meta name="description"
+        content="Experience premium dental care at Pinnacle Dental Centre, Westlands. Specialist in Invisalign, Implants, and Cosmetic Dentistry.">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        pinnacle: '#3198D8',
+                        seafoam: '#20C997',
+                        teal: '#17A2B8',
+                        dark: '#1E293B'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        premium: ['Outfit', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Performance: preload first carousel image to fix LCP -->
+    <link rel="preload" as="image" href="carousel1.jpg">
+    <!-- DNS prefetch for external resources -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <link rel="dns-prefetch" href="https://maps.googleapis.com">
+</head>
+
+<body class="bg-white text-dark">
+
+    <!-- Premium Navigation -->
+    <nav class="fixed w-full z-50 glass-effect transition-all duration-300" id="main-nav">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-0">
+                <div class="flex-shrink-0 flex items-center">
+                    <img src="Pinnacle%20logo%20transparent.png" alt="Pinnacle Dental Logo" class="h-16 md:h-24 w-auto">
+                </div>
+
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="index.html" data-nav="home"
+                            class="nav-link text-dark px-3 py-2 rounded-lg font-medium transition-all duration-300">Home</a>
+                        <a href="#about" data-nav="about"
+                            class="nav-link text-dark px-3 py-2 rounded-lg font-medium transition-all duration-300">About</a>
+                        <a href="#services" data-nav="services"
+                            class="nav-link text-dark px-3 py-2 rounded-lg font-medium transition-all duration-300">Services</a>
+
+                        <a href="#blog" data-nav="blog"
+                            class="nav-link text-dark px-3 py-2 rounded-lg font-medium transition-all duration-300">Blog</a>
+                        <a href="shop.html" data-nav="shop"
+                            class="nav-link text-dark px-3 py-2 rounded-lg font-medium transition-all duration-300">Shop</a>
+                        <a href="#contact"
+                            class="bg-pinnacle text-white px-6 py-2 rounded-full font-bold premium-transition hover:bg-teal hover:shadow-lg">Book
+                            Now</a>
+                    </div>
+                </div>
+
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-dark p-2">
+                        <i data-lucide="menu"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 flex flex-col p-4 space-y-4">
+            <a href="index.html" data-nav-mobile="home"
+                class="nav-link-mobile text-lg font-medium px-3 py-2 rounded-lg transition-all duration-300">Home</a>
+            <a href="#about" data-nav-mobile="about"
+                class="nav-link-mobile text-lg font-medium px-3 py-2 rounded-lg transition-all duration-300">About</a>
+            <a href="#services" data-nav-mobile="services"
+                class="nav-link-mobile text-lg font-medium px-3 py-2 rounded-lg transition-all duration-300">Services</a>
+
+            <a href="#blog" data-nav-mobile="blog"
+                class="nav-link-mobile text-lg font-medium px-3 py-2 rounded-lg transition-all duration-300">Blog</a>
+            <a href="shop.html" data-nav-mobile="shop"
+                class="nav-link-mobile text-lg font-medium px-3 py-2 rounded-lg transition-all duration-300">Shop</a>
+            <a href="#contact" class="bg-pinnacle text-white text-center py-3 rounded-xl font-bold">Book Appointment</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative h-screen flex items-center overflow-hidden">
+
+        <!-- ===== FULLSCREEN CAROUSEL BACKGROUND ===== -->
+        <div class="absolute inset-0 z-0" id="hero-carousel">
+            <!-- Slides -->
+            <div class="hero-slide active" style="background-image: url('carousel1.jpg')"></div>
+            <div class="hero-slide" style="background-image: url('carousel2.jpg')"></div>
+            <div class="hero-slide" style="background-image: url('carousel3.jpg')"></div>
+            <div class="hero-slide" style="background-image: url('carousel4.jpg')"></div>
+            <!-- Dark gradient overlay so text stays readable -->
+            <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-black/20 z-10"></div>
+        </div>
+
+        <!-- ===== HERO CONTENT (overlaid on carousel) ===== -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
+            <div class="max-w-2xl">
+                <div
+                    class="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur text-white rounded-full font-bold text-sm mb-6 border border-white/20">
+                    <span class="relative flex h-3 w-3">
+                        <span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-seafoam opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-3 w-3 bg-seafoam"></span>
+                    </span>
+                    WORLD-CLASS DENTAL EXCELLENCE
+                </div>
+                <h1
+                    class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-premium font-bold leading-tight mb-5 text-white drop-shadow-2xl">
+                    The <span class="text-seafoam italic">SMile</span> You Deserve.
+                </h1>
+                <p class="text-base sm:text-lg md:text-xl text-white/80 mb-8 leading-relaxed drop-shadow-lg">
+                    At Pinnacle Dental Centre, we combine state-of-the-art technology with a luxury patient experience
+                    at Sarit Centre, Westlands.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <a href="#contact"
+                        class="bg-pinnacle text-white px-6 py-3 sm:px-10 sm:py-4 rounded-full font-bold text-base sm:text-lg text-center premium-transition hover:bg-seafoam hover:scale-105 shadow-xl shadow-pinnacle/30">
+                        Book Appointment
+                    </a>
+                    <a href="#services"
+                        class="bg-white/10 backdrop-blur border-2 border-white text-white px-6 py-3 sm:px-10 sm:py-4 rounded-full font-bold text-base sm:text-lg text-center hover:bg-white hover:text-dark transition-all">
+                        Our Services
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Carousel Dots -->
+        <div class="absolute bottom-20 left-1/2 -translate-x-1/2 flex gap-3 z-20" id="carousel-dots">
+            <button class="carousel-dot w-8 h-2 rounded-full bg-white transition-all duration-300"
+                data-index="0"></button>
+            <button class="carousel-dot w-2 h-2 rounded-full bg-white/40 transition-all duration-300"
+                data-index="1"></button>
+            <button class="carousel-dot w-2 h-2 rounded-full bg-white/40 transition-all duration-300"
+                data-index="2"></button>
+            <button class="carousel-dot w-2 h-2 rounded-full bg-white/40 transition-all duration-300"
+                data-index="3"></button>
+        </div>
+
+        <!-- Scroll Down Indicator -->
+        <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce z-20">
+            <span class="text-sm font-medium text-white/60 uppercase tracking-widest">Scroll</span>
+            <i data-lucide="chevron-down" class="text-white/60"></i>
+        </div>
+    </section>
+
+
+    <!-- Achievements Section -->
+    <section id="achievements" class="py-24 bg-dark relative overflow-hidden">
+        <!-- Subtle background glows -->
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-pinnacle/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-seafoam/10 rounded-full blur-3xl pointer-events-none">
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <p class="text-seafoam font-bold uppercase tracking-[0.3em] text-sm mb-3">Our Milestones</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+
+                <!-- Stat 1 -->
+                <div
+                    class="stat-card group text-center bg-white/5 backdrop-blur border border-white/10 rounded-3xl p-8 hover:border-pinnacle/50 hover:bg-white/10 transition-all duration-500">
+                    <div
+                        class="w-14 h-14 bg-pinnacle/20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-pinnacle transition-colors duration-500">
+                        <svg class="w-7 h-7 text-pinnacle group-hover:text-white transition-colors duration-500"
+                            fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <div class="font-premium font-bold text-white mb-2">
+                        <span class="counter text-5xl md:text-6xl" data-target="10" data-suffix="">0</span><span
+                            class="text-pinnacle text-4xl font-bold">+</span>
+                    </div>
+                    <p class="text-gray-400 font-medium uppercase tracking-widest text-xs mt-2">Years Experience</p>
+                </div>
+
+                <!-- Stat 2 -->
+                <div
+                    class="stat-card group text-center bg-white/5 backdrop-blur border border-white/10 rounded-3xl p-8 hover:border-seafoam/50 hover:bg-white/10 transition-all duration-500">
+                    <div
+                        class="w-14 h-14 bg-seafoam/20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-seafoam transition-colors duration-500">
+                        <svg class="w-7 h-7 text-seafoam group-hover:text-white transition-colors duration-500"
+                            fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0" />
+                        </svg>
+                    </div>
+                    <div class="font-premium font-bold text-white mb-2">
+                        <span class="counter text-5xl md:text-6xl" data-target="5" data-suffix="">0</span><span
+                            class="text-seafoam text-4xl font-bold">+</span>
+                    </div>
+                    <p class="text-gray-400 font-medium uppercase tracking-widest text-xs mt-2">Specialists</p>
+                </div>
+
+                <!-- Stat 3 -->
+                <div
+                    class="stat-card group text-center bg-white/5 backdrop-blur border border-white/10 rounded-3xl p-8 hover:border-teal/50 hover:bg-white/10 transition-all duration-500">
+                    <div
+                        class="w-14 h-14 bg-teal/20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-teal transition-colors duration-500">
+                        <svg class="w-7 h-7 text-teal group-hover:text-white transition-colors duration-500" fill="none"
+                            stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <div class="font-premium font-bold text-white mb-2">
+                        <span class="counter text-5xl md:text-6xl" data-target="1000" data-suffix="">0</span><span
+                            class="text-teal text-4xl font-bold">+</span>
+                    </div>
+                    <p class="text-gray-400 font-medium uppercase tracking-widest text-xs mt-2">Happy Patients</p>
+                </div>
+
+                <!-- Stat 4 -->
+                <div
+                    class="stat-card group text-center bg-white/5 backdrop-blur border border-white/10 rounded-3xl p-8 hover:border-pinnacle/50 hover:bg-white/10 transition-all duration-500">
+                    <div
+                        class="w-14 h-14 bg-pinnacle/20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-pinnacle transition-colors duration-500">
+                        <svg class="w-7 h-7 text-pinnacle group-hover:text-white transition-colors duration-500"
+                            fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                        </svg>
+                    </div>
+                    <div class="font-premium font-bold text-white mb-2">
+                        <span class="counter text-5xl md:text-6xl" data-target="500" data-suffix="">0</span>
+                    </div>
+                    <p class="text-gray-400 font-medium uppercase tracking-widest text-xs mt-2">Patients Yearly</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- About Section -->
+    <section id="about" class="py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="relative">
+                    <div class="absolute -top-10 -left-10 w-40 h-40 bg-pinnacle/10 rounded-full blur-3xl"></div>
+                    <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=1780&auto=format&fit=crop"
+                        alt="Clinical Excellence"
+                        class="rounded-3xl shadow-2xl relative z-10 w-full aspect-square object-cover">
+                    <div
+                        class="absolute -right-6 -bottom-6 bg-white p-8 rounded-2xl shadow-xl z-20 hidden md:block border border-gray-100 italic font-medium">
+                        "Excellence is not an act, but a habit."
+                    </div>
+                </div>
+                <div>
+                    <h2 class="text-4xl md:text-5xl font-premium font-bold mb-8 leading-tight">A Legacy of <span
+                            class="text-pinnacle">Excellence</span> at Sarit Centre.</h2>
+                    <p class="text-gray-600 text-lg leading-relaxed mb-6">
+                        Pinnacle Dental Centre is more than just a dental clinic; it's a sanctuary for oral health and
+                        aesthetic transformation. Located in the heart of Westlands at Sarit Centre, we have spent over
+                        a decade perfecting the art of painless dentistry.
+                    </p>
+                    <p class="text-gray-600 text-lg leading-relaxed mb-10">
+                        Our state-of-the-art facility is equipped with the latest diagnostic and imaging equipment,
+                        ensuring precision in every procedure—from routine cleanings to complex reconstructive surgery.
+                    </p>
+                    <ul class="space-y-4 mb-10">
+                        <li class="flex items-center gap-3 text-lg font-medium">
+                            <i data-lucide="check-circle" class="text-seafoam"></i> State-of-the-Art Modern Facility
+                        </li>
+                        <li class="flex items-center gap-3 text-lg font-medium">
+                            <i data-lucide="check-circle" class="text-seafoam"></i> Personalized, Painless Care
+                        </li>
+                        <li class="flex items-center gap-3 text-lg font-medium">
+                            <i data-lucide="check-circle" class="text-seafoam"></i> Located at Sarit Centre, Westlands
+                        </li>
+                    </ul>
+                    <a href="#services"
+                        class="inline-flex items-center gap-2 text-pinnacle font-bold text-lg hover:underline">
+                        Explore Our Approach <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-soft-gray">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-14">
+                <p class="text-seafoam font-bold uppercase tracking-[0.3em] text-sm mb-3">What We Offer</p>
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-premium font-bold mb-4">Premium Dental Solutions</h2>
+                <p class="text-gray-500 text-base sm:text-lg">A comprehensive range of treatments delivered by
+                    specialists using the world's most advanced technology.</p>
+            </div>
+
+            <!-- JS renders cards here -->
+            <div id="services-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-7"></div>
+        </div>
+    </section>
+
+    <!-- ===== SERVICE MODAL ===== -->
+    <div id="service-modal" class="fixed inset-0 z-[200] hidden items-center justify-center p-4 sm:p-6">
+        <!-- Overlay -->
+        <div id="modal-overlay" class="absolute inset-0 bg-dark/70 backdrop-blur-sm"></div>
+        <!-- Panel -->
+        <div
+            class="relative bg-white rounded-3xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto z-10 flex flex-col">
+            <!-- Image -->
+            <div class="relative h-52 sm:h-72 shrink-0 overflow-hidden rounded-t-3xl bg-gray-100">
+                <img id="modal-img" src="" alt="" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-dark/60 via-transparent to-transparent"></div>
+                <!-- Service name overlay on image -->
+                <div class="absolute bottom-0 left-0 p-5 sm:p-8">
+                    <div id="modal-badge"
+                        class="inline-block px-3 py-1 rounded-full text-xs font-bold text-white mb-2 bg-seafoam"></div>
+                    <h3 id="modal-title" class="text-2xl sm:text-3xl font-premium font-bold text-white"></h3>
+                </div>
+                <!-- Close button -->
+                <button id="modal-close"
+                    class="absolute top-4 right-4 w-10 h-10 bg-white/20 backdrop-blur rounded-full flex items-center justify-center text-white hover:bg-white hover:text-dark transition-all">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <!-- Body -->
+            <div class="p-5 sm:p-8 flex flex-col gap-4">
+                <p id="modal-desc1" class="text-gray-700 leading-relaxed text-base sm:text-lg"></p>
+                <p id="modal-desc2" class="text-gray-500 leading-relaxed text-sm sm:text-base"></p>
+                <a href="#contact" id="modal-cta"
+                    onclick="document.getElementById('service-modal').classList.add('hidden'); document.getElementById('service-modal').classList.remove('flex');"
+                    class="mt-2 inline-flex items-center justify-center gap-2 bg-pinnacle text-white px-8 py-4 rounded-2xl font-bold text-base hover:bg-seafoam transition-all shadow-lg shadow-pinnacle/20 w-full sm:w-auto">
+                    Book a Consultation
+                    <i data-lucide="calendar" class="w-5 h-5"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- Before & After Section -->
+    <section class="py-24 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-16 text-center md:text-left">
+                <div class="max-w-2xl">
+                    <h2 class="text-4xl md:text-5xl font-premium font-bold mb-6">Seeing is <span
+                            class="text-pinnacle">Believing</span>.</h2>
+                    <p class="text-gray-500 text-lg">Browse through our gallery of successful transformations. Each
+                        smile is a result of precision and passion.</p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-12" id="comparison-grid">
+                <!-- Comparisons will be injected by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog" class="py-24 bg-soft-gray">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-16 gap-8">
+                <div class="max-w-xl text-center md:text-left">
+                    <p class="text-seafoam font-bold uppercase tracking-[0.3em] text-sm mb-3">Our Journal</p>
+                    <h2 class="text-4xl md:text-5xl font-premium font-bold mb-6">Dental <span
+                            class="text-pinnacle">Insights</span></h2>
+                    <p class="text-gray-500 text-lg">Expert advice and the latest trends in aesthetic dentistry and oral
+                        wellness.</p>
+                </div>
+                <!-- Optional: View all link could go to a separate page later -->
+            </div>
+
+            <!-- Blog Grid (Dynamic) -->
+            <div id="blog-grid" class="grid md:grid-cols-3 gap-8"></div>
+        </div>
+    </section>
+
+    <!-- ===== BLOG MODAL ===== -->
+    <div id="blog-modal" class="fixed inset-0 z-[200] hidden items-center justify-center p-4 sm:p-6">
+        <!-- Overlay -->
+        <div id="blog-overlay" class="absolute inset-0 bg-dark/70 backdrop-blur-sm"></div>
+        <!-- Panel -->
+        <div
+            class="relative bg-white rounded-3xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto z-10 flex flex-col">
+            <!-- Header Image -->
+            <div class="relative h-64 sm:h-96 shrink-0 overflow-hidden rounded-t-3xl bg-gray-100">
+                <img id="blog-modal-img" src="" alt="" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-dark/80 via-transparent to-transparent"></div>
+                <!-- Close button -->
+                <button id="blog-modal-close"
+                    class="absolute top-6 right-6 w-12 h-12 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-white hover:text-dark transition-all shadow-lg">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+            <!-- Body -->
+            <div class="p-8 sm:p-12">
+                <div class="flex items-center gap-4 text-xs font-bold text-teal uppercase tracking-widest mb-6">
+                    <span id="blog-modal-tag"></span>
+                    <span class="w-1.5 h-1.5 bg-gray-200 rounded-full"></span>
+                    <span id="blog-modal-date"></span>
+                </div>
+                <h2 id="blog-modal-title"
+                    class="text-3xl sm:text-4xl md:text-5xl font-premium font-bold mb-10 leading-tight"></h2>
+
+                <div id="blog-modal-content" class="prose prose-lg max-w-none text-gray-600 leading-relaxed space-y-6">
+                    <!-- Article content injected here -->
+                </div>
+
+                <div
+                    class="mt-16 pt-10 border-t border-gray-100 flex flex-col sm:flex-row justify-between items-center gap-8">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-pinnacle/10 rounded-full flex items-center justify-center">
+                            <i data-lucide="award" class="text-pinnacle"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-dark">Clinical Team</p>
+                            <p class="text-xs text-gray-400">Pinnacle Dental Centre</p>
+                        </div>
+                    </div>
+                    <a href="#contact" onclick="closeBlogModal()"
+                        class="bg-pinnacle text-white px-8 py-4 rounded-2xl font-bold hover:bg-seafoam transition-all shadow-lg shadow-pinnacle/20">Book
+                        a Consultation</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Trusted By / Insurance Marquee -->
+    <section class="py-16 bg-white border-y border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12 text-center">
+            <h2 class="text-3xl md:text-4xl font-premium font-bold mb-4">Trusted <span class="text-pinnacle">By</span>
+            </h2>
+            <p class="text-gray-500 max-w-2xl mx-auto">We collaborate with industry leaders to provide the best
+                solutions for our clients.</p>
+        </div>
+        <div class="marquee-container">
+            <div class="marquee-content gap-16 md:gap-32 items-center px-4">
+                <img src="AAR logo.jpg" alt="AAR" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
+                <img src="Bupa Logo.png" alt="Bupa" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
+                <img src="Heritage Logo.png" alt="Heritage" class="h-10 md:h-14 transition-all cursor-pointer"
+                    loading="lazy">
+                <img src="MTN logo.png" alt="MTN" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
+                <img src="alliance logo.png" alt="Alliance" class="h-10 md:h-14 transition-all cursor-pointer"
+                    loading="lazy">
+                <img src="axa logo.png" alt="AXA" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
+                <img src="eabl logo.svg" alt="EABL" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
+                <img src="eagle logo.png" alt="Eagle" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
+                <img src="liaison logo.jpg" alt="Liaison" class="h-10 md:h-14 transition-all cursor-pointer"
+                    loading="lazy">
+                <img src="old mutual logo.png" alt="Old Mutual" class="h-10 md:h-14 transition-all cursor-pointer"
+                    loading="lazy">
+                <img src="pacific logo.png" alt="Pacific" class="h-10 md:h-14 transition-all cursor-pointer"
+                    loading="lazy">
+                <img src="pacis logo.jpg" alt="Pacis" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
+                <img src="sedgwick logo.jpg" alt="Sedgwick" class="h-10 md:h-14 transition-all cursor-pointer"
+                    loading="lazy">
+                <img src="signa logo.jpg" alt="Cigna" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
+                <img src="uap logo.png" alt="UAP" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
+
+                <!-- Repeat for smooth loop -->
+                <img src="AAR logo.jpg" alt="AAR" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
+                <img src="Bupa Logo.png" alt="Bupa" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
+                <img src="Heritage Logo.png" alt="Heritage" class="h-10 md:h-14 transition-all cursor-pointer"
+                    loading="lazy">
+                <img src="MTN logo.png" alt="MTN" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
+                <img src="alliance logo.png" alt="Alliance" class="h-10 md:h-14 transition-all cursor-pointer"
+                    loading="lazy">
+                <img src="axa logo.png" alt="AXA" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
+                <img src="eabl logo.svg" alt="EABL" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
+                <img src="eagle logo.png" alt="Eagle" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
+                <img src="liaison logo.jpg" alt="Liaison" class="h-10 md:h-14 transition-all cursor-pointer"
+                    loading="lazy">
+                <img src="old mutual logo.png" alt="Old Mutual" class="h-10 md:h-14 transition-all cursor-pointer"
+                    loading="lazy">
+                <img src="pacific logo.png" alt="Pacific" class="h-10 md:h-14 transition-all cursor-pointer"
+                    loading="lazy">
+                <img src="pacis logo.jpg" alt="Pacis" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
+                <img src="sedgwick logo.jpg" alt="Sedgwick" class="h-10 md:h-14 transition-all cursor-pointer"
+                    loading="lazy">
+                <img src="signa logo.jpg" alt="Cigna" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
+                <img src="uap logo.png" alt="UAP" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Booking Section -->
+    <section id="contact" class="py-24 bg-soft-gray">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white rounded-[28px] md:rounded-[40px] shadow-2xl overflow-hidden grid lg:grid-cols-2">
+                <div class="p-6 sm:p-10 md:p-12 lg:p-20">
+                    <h2 class="text-3xl md:text-4xl font-premium font-bold mb-4">Start Your <span
+                            class="text-pinnacle">Transformation</span>.</h2>
+                    <p class="text-gray-500 mb-10">Fill out the form below, and our patient coordinator will contact you
+                        to confirm your appointment at Sarit Centre.</p>
+
+                    <form id="booking-form" class="space-y-6">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wide">Full
+                                    Name</label>
+                                <input type="text" name="name" required
+                                    class="w-full px-6 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-2 focus:ring-pinnacle focus:bg-white outline-none transition-all">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wide">Phone
+                                    Number</label>
+                                <input type="tel" name="phone" required
+                                    class="w-full px-6 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-2 focus:ring-pinnacle focus:bg-white outline-none transition-all">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wide">Select
+                                Service</label>
+                            <select name="service"
+                                class="w-full px-6 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-2 focus:ring-pinnacle focus:bg-white outline-none transition-all appearance-none">
+                                <option value="" disabled selected>Choose a service</option>
+                                <option>Invisalign</option>
+                                <option>Root Canal Treatment</option>
+                                <option>Dentures & Implants</option>
+                                <option>Crowns & Bridges</option>
+                                <option>Veneers</option>
+                                <option>Cosmetic Dentistry</option>
+                                <option>Dental Check-ups</option>
+                                <option>Teeth Whitening</option>
+                                <option>Braces</option>
+                                <option>Tooth Extraction</option>
+                                <option>Paediatric Dentistry</option>
+                                <option>Dental Fillings</option>
+                                <option>Dental X-rays</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wide">Preferred
+                                Date</label>
+                            <input type="datetime-local" name="date" required
+                                class="w-full px-6 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-2 focus:ring-pinnacle focus:bg-white outline-none transition-all">
+                        </div>
+                        <button type="submit"
+                            class="w-full bg-pinnacle text-white py-5 rounded-2xl font-bold text-lg hover:bg-teal transition-all shadow-xl shadow-pinnacle/20 flex items-center justify-center gap-3">
+                            Confirm Appointment <i data-lucide="calendar"></i>
+                        </button>
+                    </form>
+                </div>
+                <div class="relative min-h-[400px]">
+                    <!-- Placeholder for Google Maps -->
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.8504547926174!2d36.8043063!3d-1.2613941!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f173c3f0b2403%3A0xe5a3e1f0e21cd24!2sSarit%20Centre!5e0!3m2!1sen!2ske!4v1709820000000!5m2!1sen!2ske"
+                        class="absolute inset-0 w-full h-full border-0" allowfullscreen="" loading="lazy"></iframe>
+                    <div
+                        class="absolute bottom-10 left-10 right-10 bg-white/90 backdrop-blur-md p-8 rounded-3xl shadow-xl border border-white">
+                        <div class="flex items-start gap-4 mb-4">
+                            <div
+                                class="w-12 h-12 bg-pinnacle rounded-xl flex items-center justify-center text-white shrink-0">
+                                <i data-lucide="map-pin"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg">Visit Us</h4>
+                                <p class="text-gray-600">Sarit Centre, 2nd Floor, Westlands, Nairobi.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div
+                                class="w-12 h-12 bg-seafoam rounded-xl flex items-center justify-center text-white shrink-0">
+                                <i data-lucide="phone"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg">Call Us</h4>
+                                <p class="text-gray-600">+254 706 076636</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white pt-24 pb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 mb-20">
+                <div class="col-span-2">
+                    <div class="flex items-center mb-4">
+                        <img src="Pinnacle%20logo%20transparent.png" alt="Pinnacle Dental Logo" class="h-32 w-auto">
+                    </div>
+                    <p class="text-gray-400 text-lg leading-relaxed max-w-md">
+                        Setting the standard for premium dental care in East Africa. Our clinic at Sarit Centre offers a
+                        unique blend of clinical excellence and luxury hospitality.
+                    </p>
+                    <div class="flex gap-4 mt-8">
+                        <!-- Social Icons -->
+                        <a href="https://tiktok.com"
+                            class="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center hover:bg-pinnacle transition-colors"><i
+                                data-lucide="music-2"></i></a>
+                        <a href="https://instagram.com"
+                            class="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center hover:bg-pinnacle transition-colors"><i
+                                data-lucide="instagram"></i></a>
+                        <a href="https://facebook.com"
+                            class="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center hover:bg-pinnacle transition-colors"><i
+                                data-lucide="facebook"></i></a>
+                        <a href="https://youtube.com"
+                            class="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center hover:bg-pinnacle transition-colors"><i
+                                data-lucide="youtube"></i></a>
+                        <a href="https://linkedin.com"
+                            class="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center hover:bg-pinnacle transition-colors"><i
+                                data-lucide="linkedin"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-premium font-bold text-xl mb-8">Quick Links</h4>
+                    <ul class="space-y-4 text-gray-400">
+                        <li><a href="#about" class="hover:text-pinnacle">About Us</a></li>
+                        <li><a href="#services" class="hover:text-pinnacle">Our Services</a></li>
+                        <li><a href="shop.html" class="hover:text-pinnacle">Dental Shop</a></li>
+                        <li><a href="#contact" class="hover:text-pinnacle">Book Appointment</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-premium font-bold text-xl mb-8">Contact Info</h4>
+                    <ul class="space-y-4 text-gray-400">
+                        <li class="flex items-center gap-3"><i data-lucide="phone" class="w-5 h-5 text-pinnacle"></i>
+                            +254 706 076636</li>
+                        <li class="flex items-center gap-3"><i data-lucide="mail" class="w-5 h-5 text-pinnacle"></i>
+                            pinnacledentalcentre@gmail.com</li>
+                        <li class="flex items-center gap-3"><i data-lucide="clock" class="w-5 h-5 text-pinnacle"></i>
+                            <div>
+                                <p>Mon - Sat: 08:00 - 05:00</p>
+                                <p>Sunday: 09:00 - 05:00</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-12 border-t border-white/10 text-center text-gray-500">
+                <p>&copy; 2026 Pinnacle Dental Centre. All rights reserved. | <a href="#"
+                        class="hover:text-white underline">Privacy Policy</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/254706076636?text=Hello%20Pinnacle%20Dental!%20I'd%20like%20to%20inquire%20about..."
+        target="_blank"
+        class="fixed bottom-6 right-4 sm:bottom-8 sm:right-6 z-[100] flex items-center gap-0 sm:gap-3 bg-[#25D366] text-white w-14 h-14 sm:w-auto sm:h-auto sm:pl-4 sm:pr-5 sm:py-3 rounded-full shadow-2xl whatsapp-btn hover:scale-105 transition-transform justify-center">
+        <!-- Official WhatsApp SVG Logo -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" class="w-7 h-7 fill-white shrink-0">
+            <path
+                d="M16 .5C7.44.5.5 7.44.5 16c0 2.82.74 5.52 2.14 7.9L.5 31.5l7.82-2.1A15.45 15.45 0 0 0 16 31.5C24.56 31.5 31.5 24.56 31.5 16S24.56.5 16 .5Zm0 28.2a13.16 13.16 0 0 1-6.72-1.84l-.48-.29-4.64 1.25 1.23-4.54-.31-.5A13.2 13.2 0 1 1 16 28.7Zm7.23-9.87c-.4-.2-2.34-1.16-2.7-1.29-.36-.13-.63-.2-.89.2s-1.02 1.29-1.25 1.55c-.23.27-.46.3-.85.1a10.76 10.76 0 0 1-3.17-1.96 11.87 11.87 0 0 1-2.19-2.73c-.23-.39 0-.6.17-.8.16-.17.36-.45.54-.67.18-.22.24-.38.36-.63.12-.26.06-.48-.03-.67-.1-.2-.89-2.14-1.22-2.93-.32-.77-.65-.67-.89-.68h-.76a1.46 1.46 0 0 0-1.06.5 4.46 4.46 0 0 0-1.39 3.32c0 1.96 1.42 3.86 1.62 4.13.2.26 2.79 4.27 6.76 5.98.95.41 1.69.65 2.26.84.95.3 1.82.26 2.5.16.76-.11 2.34-.96 2.67-1.88.33-.93.33-1.72.23-1.89-.1-.17-.36-.27-.76-.47Z" />
+        </svg>
+        <span class="hidden sm:inline font-bold text-sm whitespace-nowrap">Let's have a Chat</span>
+    </a>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Navigation Scroll Effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('main-nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('py-4', 'shadow-xl');
+                nav.classList.remove('py-2');
+            } else {
+                nav.classList.remove('py-4', 'shadow-xl');
+                nav.classList.add('py-2');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+
+</html>
