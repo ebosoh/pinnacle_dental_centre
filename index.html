@@ -982,14 +982,14 @@
 
         // Booking Form Submission
         const bookingForm = document.getElementById('booking-form');
-        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwYy_zYvYV_Z_y_Z_y_Z_y/exec'; // Placeholder
+        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbw4cft8uDGPy8hjZwfmC-B5eD6gR7LWyaD81cYXCZ93g-dKNsqCpfoh7tFSTKNCf2Mr/exec'; // Placeholder
 
         if (bookingForm) {
             bookingForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 const submitBtn = bookingForm.querySelector('button[type="submit"]');
                 const originalBtnText = submitBtn.innerHTML;
-                
+
                 // Disable button and show loading state
                 submitBtn.disabled = true;
                 submitBtn.innerHTML = '<i class="lucide-loader-2 animate-spin"></i> Processing...';
@@ -1017,7 +1017,7 @@
                     // Note: With 'no-cors', we can't read the response body. 
                     // To handle errors like 'CLASH', we should use a proper CORS setup or a proxy.
                     // For now, we will assume success if the fetch doesn't throw.
-                    
+
                     alert('Success! Your booking request has been sent. Our team will contact you to finalize the time slot.');
                     bookingForm.reset();
 
