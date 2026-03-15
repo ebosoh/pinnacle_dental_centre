@@ -994,15 +994,20 @@ window.addModalItemToCart = function () {
 
 // 5. Booking Form Handling
 const bookingForm = document.getElementById('booking-form');
+const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbw4cft8uDGPy8hjZwfmC-B5eD6gR7LWyaD81cYXCZ93g-dKNsqCpfoh7tFSTKNCf2Mr/exec';
+
 if (bookingForm) {
     bookingForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const btn = bookingForm.querySelector('button');
-        const originalText = btn.innerHTML;
-
-        btn.disabled = true;
-        btn.innerHTML = `<i data-lucide="loader-2" class="animate-spin w-5 h-5"></i> Processing...`;
-        lucide.createIcons();
+        const submitBtn = bookingForm.querySelector('button[type="submit"]');
+        if (!submitBtn) return;
+        
+        const originalBtnText = submitBtn.innerHTML;
+        
+        // Disable button and show loading state
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="lucide-loader-2 animate-spin"></i> Processing...';
+        if (window.lucide) lucide.createIcons();
 
         const formData = new FormData(bookingForm);
         const data = {
@@ -1010,20 +1015,36 @@ if (bookingForm) {
             name: formData.get('name'),
             phone: formData.get('phone'),
             service: formData.get('service'),
-            date: formData.get('date')
+            date: formData.get('date'),
+            message: formData.get('message') || ''
         };
 
-        // In a real scenario, Replace with your actual GAS Web App URL
-        // Example: https://script.google.com/macros/s/XXX/exec
-        console.log('Form Submitted to GAS:', data);
+        try {
+            console.log('Submitting booking:', data);
+            
+            // Note: Google Apps Script redirection requires handling or no-cors
+            // Using standard fetch. If CORS issues persist, we might need a different approach.
+            const response = await fetch(WEB_APP_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
 
-        setTimeout(() => {
-            alert('Thank you! Your appointment request has been sent. We will contact you shortly.');
+            // Since mode is 'no-cors', we assume success if no error is thrown
+            alert('Success! Your booking request has been sent. Our team will contact you to finalize the time slot.');
             bookingForm.reset();
-            btn.disabled = false;
-            btn.innerHTML = originalText;
-            lucide.createIcons();
-        }, 1500);
+
+        } catch (error) {
+            console.error('Submission Error:', error);
+            alert('There was an error processing your booking. Please try again or call us directly.');
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalBtnText;
+            if (window.lucide) lucide.createIcons();
+        }
     });
 }
 
