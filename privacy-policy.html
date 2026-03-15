@@ -328,9 +328,32 @@
         // Mobile Menu Toggle
         const menuBtn = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
-        menuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
+        const mobileLinks = document.querySelectorAll('.nav-link-mobile');
+
+        if (menuBtn && mobileMenu) {
+            menuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                // Update icon if needed
+                const icon = menuBtn.querySelector('i');
+                if (icon) {
+                    const isHidden = mobileMenu.classList.contains('hidden');
+                    icon.setAttribute('data-lucide', isHidden ? 'menu' : 'x');
+                    lucide.createIcons();
+                }
+            });
+
+            // Close menu when clicking a link
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    const icon = menuBtn.querySelector('i');
+                    if (icon) {
+                        icon.setAttribute('data-lucide', 'menu');
+                        lucide.createIcons();
+                    }
+                });
+            });
+        }
 
         // Navigation Scroll Effect
         window.addEventListener('scroll', () => {
