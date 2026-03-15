@@ -979,6 +979,57 @@
                 });
             });
         }
+
+        // Booking Form Submission
+        const bookingForm = document.getElementById('booking-form');
+        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwYy_zYvYV_Z_y_Z_y_Z_y/exec'; // Placeholder
+
+        if (bookingForm) {
+            bookingForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const submitBtn = bookingForm.querySelector('button[type="submit"]');
+                const originalBtnText = submitBtn.innerHTML;
+                
+                // Disable button and show loading state
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="lucide-loader-2 animate-spin"></i> Processing...';
+
+                const formData = new FormData(bookingForm);
+                const data = {
+                    action: 'createBooking',
+                    name: formData.get('name'),
+                    phone: formData.get('phone'),
+                    service: formData.get('service'),
+                    date: formData.get('date'),
+                    message: formData.get('message') || ''
+                };
+
+                try {
+                    const response = await fetch(WEB_APP_URL, {
+                        method: 'POST',
+                        mode: 'no-cors', // Apps Script requires no-cors for simple POST or handle it via options
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    });
+
+                    // Note: With 'no-cors', we can't read the response body. 
+                    // To handle errors like 'CLASH', we should use a proper CORS setup or a proxy.
+                    // For now, we will assume success if the fetch doesn't throw.
+                    
+                    alert('Success! Your booking request has been sent. Our team will contact you to finalize the time slot.');
+                    bookingForm.reset();
+
+                } catch (error) {
+                    console.error('Submission Error:', error);
+                    alert('There was an error processing your booking. Please try again or call us directly.');
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalBtnText;
+                }
+            });
+        }
     </script>
     <!-- ElevenLabs AI Widget -->
     <div style="position: fixed; bottom: 1.5rem; right: 1rem; z-index: 100;">
