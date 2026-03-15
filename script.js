@@ -159,8 +159,8 @@ const SERVICES = [
         icon: '🦷',
         accent: '#3198D8',
         img: 'invisalign.jpg',
-        desc1: 'Invisalign offers a modern, nearly invisible way to correct misaligned teeth without the hassle of traditional metal braces. The custom-made, removable aligners make it easier to maintain your oral hygiene while undergoing treatment.',
-        desc2: 'With regular changes of your aligners and occasional dental visits, you can achieve a beautifully straight smile in less time and with more comfort compared to conventional braces.',
+        desc1: 'Discover the modern way to straighten your teeth with Invisalign aligners. Designed for comfort, convenience, and confidence.',
+        desc2: '<h4 class="text-xl font-bold text-dark mb-4">Transform Your Smile Journey</h4><p class="text-gray-600 mb-6">Invisalign offers a modern, nearly invisible way to correct misaligned teeth without the hassle of traditional metal braces. The custom-made, removable aligners make it easier to maintain your oral hygiene while undergoing treatment.</p><div class="flex flex-col items-center p-6 bg-blue-50 rounded-3xl border border-blue-100 text-center"><img src="QR Code.png" alt="Invisalign QR Code" class="w-32 h-32 rounded-xl shadow-lg mb-4"><p class="text-sm font-semibold text-gray-700">Scan the QR code to see your before and after invisalign results.</p></div>',
         isNew: true,
         features: [
             { title: "Virtually Invisible", desc: "Clear aligners that people won't notice" },
