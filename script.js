@@ -1020,27 +1020,65 @@ if (bookingForm) {
         };
 
         try {
-            console.log('--- BOOKING SUBMISSION START ---'); // New log marker
-            console.log('Data payload:', data);
+            console.log('--- BOOKING SUBMISSION START (JSONP) ---');
             
-            // Using text/plain avoids the preflight (OPTIONS) request which GAS often chokes on
-            // but GAS's e.postData.contents will still contain the JSON string.
-            const response = await fetch(WEB_APP_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: {
-                    'Content-Type': 'text/plain;charset=utf-8'
-                },
-                body: JSON.stringify(data)
+            // Create a unique callback name
+            const callbackName = 'gas_callback_' + Math.round(Math.random() * 1000000);
+            
+            // Construct the URL with parameters for doGet
+            const params = new URLSearchParams({
+                action: 'createBooking',
+                name: data.name,
+                phone: data.phone,
+                service: data.service,
+                date: data.date,
+                message: data.message,
+                callback: callbackName
             });
 
-            // Since mode is 'no-cors', we assume success if no error is thrown
-            alert('Success! Your booking request has been sent. Our team will contact you to finalize the time slot.');
-            bookingForm.reset();
+            // Promise-based JSONP
+            const result = await new Promise((resolve, reject) => {
+                const script = document.createElement('script');
+                script.src = `${WEB_APP_URL}?${params.toString()}`;
+                
+                window[callbackName] = (response) => {
+                    delete window[callbackName];
+                    document.body.removeChild(script);
+                    resolve(response);
+                };
+
+                script.onerror = () => {
+                    delete window[callbackName];
+                    document.body.removeChild(script);
+                    reject(new Error('Network error or invalid script.'));
+                };
+
+                document.body.appendChild(script);
+                
+                // Timeout after 30 seconds
+                setTimeout(() => {
+                    if (window[callbackName]) {
+                        delete window[callbackName];
+                        document.body.removeChild(script);
+                        reject(new Error('Submission timed out. Please check your internet connection.'));
+                    }
+                }, 30000);
+            });
+
+            console.log('GAS Response:', result);
+
+            if (result.status === 'success' && result.data.status === 'success') {
+                alert('Success! ' + result.data.message);
+                bookingForm.reset();
+            } else if (result.data && result.data.status === 'clash') {
+                alert(result.data.message); // This shows the "Slot already taken" warning
+            } else {
+                alert('Error: ' + (result.message || 'Unknown error occurred.'));
+            }
 
         } catch (error) {
             console.error('Submission Error:', error);
-            alert('There was an error processing your booking. Please try again or call us directly.');
+            alert('There was an error processing your booking. Please check your internet connection and try again.');
         } finally {
             submitBtn.disabled = false;
             submitBtn.innerHTML = originalBtnText;
