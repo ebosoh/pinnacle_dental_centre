@@ -1020,15 +1020,16 @@ if (bookingForm) {
         };
 
         try {
-            console.log('Submitting booking:', data);
+            console.log('--- BOOKING SUBMISSION START ---'); // New log marker
+            console.log('Data payload:', data);
             
-            // Note: Google Apps Script redirection requires handling or no-cors
-            // Using standard fetch. If CORS issues persist, we might need a different approach.
+            // Using text/plain avoids the preflight (OPTIONS) request which GAS often chokes on
+            // but GAS's e.postData.contents will still contain the JSON string.
             const response = await fetch(WEB_APP_URL, {
                 method: 'POST',
                 mode: 'no-cors',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'text/plain;charset=utf-8'
                 },
                 body: JSON.stringify(data)
             });
