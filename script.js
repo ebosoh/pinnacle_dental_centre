@@ -305,7 +305,7 @@ function renderServices() {
             <div class="h-48 overflow-hidden relative">
                 <img src="${svc.img}" alt="${svc.name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                 <div class="absolute inset-0 bg-gradient-to-t from-dark/20 to-transparent"></div>
-                ${svc.isNew ? '<div class="absolute top-4 right-4 z-10"><span class="absolute -inset-1 rounded-lg bg-red-500 opacity-40 animate-ping"></span><span class="relative inline-flex items-center text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-lg text-white bg-red-600 shadow-lg"><i data-lucide="zap" class="w-3 h-3 mr-1"></i>NEW</span></div>' : ''}
+                ${svc.isNew ? '<div class="absolute top-4 right-4 z-10"><span class="absolute -inset-1 rounded-lg bg-red-700 opacity-40 animate-ping"></span><span class="relative inline-flex items-center text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-lg text-white bg-red-700 shadow-lg"><i data-lucide="zap" class="w-3 h-3 mr-1"></i>NEW</span></div>' : ''}
                 <div class="absolute top-4 left-4">
                     <span class="text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded-lg text-white backdrop-blur-md bg-white/20 border border-white/30">
                         ${svc.category}

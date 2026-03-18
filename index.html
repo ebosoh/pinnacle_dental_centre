@@ -103,7 +103,7 @@
             <div class="hero-slide" style="background-image: url('carousel2.jpg'); background-position: right top;"></div>
             <div class="hero-slide" style="background-image: url('carousel3.jpg'); background-position: center top;"></div>
             <!-- Dark gradient overlay so text stays readable -->
-            <div class="absolute inset-0 bg-gradient-to-r from-black/50 via-black/25 to-transparent z-10"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-transparent z-10"></div>
         </div>
 
         <!-- ===== Anniversary Badge (Hero Top Right) ===== -->
@@ -253,6 +253,78 @@
             </div>
         </div>
     </section>
+    
+    <section id="featured-invisalign" class="py-24 bg-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-soft-gray rounded-[2.5rem] overflow-hidden border border-gray-100 shadow-[0_0_80px_rgba(0,0,0,0.06),0_30px_70px_-10px_rgba(0,0,0,0.15)] flex flex-col lg:flex-row items-center">
+                <!-- Image side -->
+                <div class="w-full lg:w-1/2 h-[400px] lg:h-[600px] relative">
+                    <img src="invisalign.jpg" alt="Clear Aligners Treatment" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-r from-black/20 to-transparent lg:hidden"></div>
+                    <!-- Badges -->
+                    <div class="absolute top-8 left-8">
+                        <span class="bg-pinnacle text-white px-6 py-2 rounded-full font-bold text-sm tracking-widest uppercase shadow-lg">
+                            Featured Service
+                        </span>
+                    </div>
+                    <div class="absolute top-8 right-8">
+                        <div class="relative inline-flex">
+                            <span class="absolute -inset-1 rounded-lg bg-red-700 opacity-40 animate-ping"></span>
+                            <span class="relative inline-flex items-center text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-lg text-white bg-red-700 shadow-lg">
+                                <i data-lucide="zap" class="w-3 h-3 mr-1"></i>NEW
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Content side -->
+                <div class="w-full lg:w-1/2 p-10 lg:p-20">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-12 h-12 bg-pinnacle/10 rounded-2xl flex items-center justify-center text-2xl">
+                            🦷
+                        </div>
+                        <h2 class="text-4xl lg:text-5xl font-premium font-bold text-dark">Clear Aligners</h2>
+                    </div>
+                    <p class="text-gray-600 text-lg leading-relaxed mb-8">
+                        Unlock your most confident smile with Clear Aligners. Using advanced clear aligner technology, we straighten your teeth with precision, comfort, and zero metal.
+                    </p>
+                    <div class="space-y-4 mb-10">
+                        <div class="flex items-start gap-4">
+                            <i data-lucide="check-circle-2" class="text-seafoam w-6 h-6 mt-1"></i>
+                            <div>
+                                <h4 class="font-bold text-dark text-lg">Virtually Invisible</h4>
+                                <p class="text-gray-500">Clear aligners that people won't notice while you're wearing them.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <i data-lucide="check-circle-2" class="text-seafoam w-6 h-6 mt-1"></i>
+                            <div>
+                                <h4 class="font-bold text-dark text-lg">Removable & Convenient</h4>
+                                <p class="text-gray-500">Eat what you want and brush normally—just pop them out during meals.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- QR Code Callout -->
+                    <div class="mb-10 flex items-center gap-6 p-6 bg-blue-50 rounded-3xl border border-blue-100 shadow-sm transition-all hover:bg-white hover:shadow-md">
+                        <img src="QR Code.png" alt="Clear Aligners QR Code" class="w-24 h-24 rounded-xl shadow-lg">
+                        <div>
+                            <p class="text-sm font-bold text-dark mb-1 font-premium">See Your Future Smile</p>
+                            <p class="text-xs text-gray-500 leading-relaxed">Scan to see your potential results with our Clear Aligners outcome simulator.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button onclick="openServiceModal(0)" class="bg-pinnacle text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-seafoam transition-all shadow-xl shadow-pinnacle/30 text-center">
+                            Learn More
+                        </button>
+                        <a href="#contact" class="bg-white border-2 border-pinnacle text-pinnacle px-10 py-4 rounded-full font-bold text-lg hover:bg-pinnacle hover:text-white transition-all text-center">
+                            Book Scan
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
 
     <!-- About Section -->
@@ -275,7 +347,7 @@
                 <div class="order-1 md:order-2">
                     <p class="text-seafoam font-bold uppercase tracking-[0.3em] text-sm mb-3">Our Core</p>
                     <h2 class="text-4xl md:text-5xl font-premium font-bold mb-8 leading-tight">The Pinnacle Dental
-                        Center</h2>
+                        Centre</h2>
                     <p class="text-gray-600 text-lg leading-relaxed mb-6">
                         We prioritize your comfort and satisfaction, providing personalized care in a friendly and
                         welcoming environment. Trust us to transform your dental experience and leave you with a healthy
@@ -457,7 +529,22 @@
                             <h4
                                 class="text-xl font-premium font-bold text-dark group-hover:text-seafoam transition-colors">
                                 Dr Tanya Shah</h4>
-                            <p class="text-seafoam text-sm font-medium mb-1 uppercase tracking-wide">General Dentistry</p>
+                            <p class="text-seafoam text-sm font-medium mb-1 uppercase tracking-wide">General Dentist</p>
+                        </div>
+                    </div>
+
+                    <!-- Dr. Kinya -->
+                    <div
+                        class="staff-card-glow group relative overflow-hidden rounded-[2.5rem] bg-white shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100">
+                        <div class="aspect-[3/4] overflow-hidden">
+                            <img src="opt_Kinya.jpg" alt="Dr. Lavina Kinya"
+                                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        </div>
+                        <div class="p-6 text-center">
+                            <h4
+                                class="text-xl font-premium font-bold text-dark group-hover:text-seafoam transition-colors">
+                                Dr. Lavina Kinya</h4>
+                            <p class="text-seafoam text-sm font-medium mb-1 uppercase tracking-wide">General Dentist</p>
                         </div>
                     </div>
 
@@ -481,7 +568,7 @@
                     <div
                         class="staff-card-glow group relative overflow-hidden rounded-[2.5rem] bg-white shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100">
                         <div class="aspect-[3/4] overflow-hidden">
-                            <img src="edna.jpg" alt="Edna Chepwogen"
+                            <img src="Edna2.jpg" alt="Edna Chepwogen"
                                 class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110">
                         </div>
                         <div class="p-6 text-center">
@@ -505,6 +592,51 @@
                                 Naomi Rambira</h4>
                             <p class="text-pinnacle text-sm font-medium mb-1 uppercase tracking-wide">Dental Assistant
                             </p>
+                        </div>
+                    </div>
+
+                    <!-- Benedict -->
+                    <div
+                        class="staff-card-glow group relative overflow-hidden rounded-[2.5rem] bg-white shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100">
+                        <div class="aspect-[3/4] overflow-hidden">
+                            <img src="opt_Benedict.jpg" alt="Benedict Kyalo"
+                                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        </div>
+                        <div class="p-6 text-center">
+                            <h4
+                                class="text-xl font-premium font-bold text-dark group-hover:text-pinnacle transition-colors">
+                                Benedict Kyalo</h4>
+                            <p class="text-pinnacle text-sm font-medium mb-1 uppercase tracking-wide">Dental Assistant</p>
+                        </div>
+                    </div>
+
+                    <!-- Beldine -->
+                    <div
+                        class="staff-card-glow group relative overflow-hidden rounded-[2.5rem] bg-white shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100">
+                        <div class="aspect-[3/4] overflow-hidden">
+                            <img src="opt_Beldine.jpg" alt="Beldine Ochieng"
+                                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        </div>
+                        <div class="p-6 text-center">
+                            <h4
+                                class="text-xl font-premium font-bold text-dark group-hover:text-pinnacle transition-colors">
+                                Beldine Ochieng</h4>
+                            <p class="text-pinnacle text-sm font-medium mb-1 uppercase tracking-wide">Dental Assistant</p>
+                        </div>
+                    </div>
+
+                    <!-- Mercy -->
+                    <div
+                        class="staff-card-glow group relative overflow-hidden rounded-[2.5rem] bg-white shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100">
+                        <div class="aspect-[3/4] overflow-hidden">
+                            <img src="opt_Mercy.jpg" alt="Mercy Francis"
+                                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        </div>
+                        <div class="p-6 text-center">
+                            <h4
+                                class="text-xl font-premium font-bold text-dark group-hover:text-seafoam transition-colors">
+                                Mercy Francis</h4>
+                            <p class="text-seafoam text-sm font-medium mb-1 uppercase tracking-wide">Business Development</p>
                         </div>
                     </div>
                 </div>
@@ -666,46 +798,38 @@
             <div class="marquee-content gap-16 md:gap-32 items-center px-4">
                 <img src="AAR logo.jpg" alt="AAR" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
                 <img src="Bupa Logo.png" alt="Bupa" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
-                <img src="Heritage Logo.png" alt="Heritage" class="h-10 md:h-14 transition-all cursor-pointer"
-                    loading="lazy">
+                <img src="Heritage Logo.png" alt="Heritage" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
                 <img src="MTN logo.png" alt="MTN" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
-                <img src="alliance logo.png" alt="Alliance" class="h-10 md:h-14 transition-all cursor-pointer"
-                    loading="lazy">
+                <img src="alliance logo.png" alt="Alliance" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
                 <img src="axa logo.png" alt="AXA" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
-                <img src="eabl logo.svg" alt="EABL" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
+                <img src="Filedity logo.png" alt="Fidelity" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
+                <img src="MUA logo.webp" alt="MUA" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
+                <img src="CIC logo.png" alt="CIC" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
                 <img src="eagle logo.png" alt="Eagle" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
-                <img src="liaison logo.jpg" alt="Liaison" class="h-10 md:h-14 transition-all cursor-pointer"
-                    loading="lazy">
-                <img src="old mutual logo.png" alt="Old Mutual" class="h-10 md:h-14 transition-all cursor-pointer"
-                    loading="lazy">
-                <img src="pacific logo.png" alt="Pacific" class="h-10 md:h-14 transition-all cursor-pointer"
-                    loading="lazy">
+                <img src="liaison logo.jpg" alt="Liaison" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
+                <img src="old mutual logo.png" alt="Old Mutual" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
+                <img src="pacific logo.png" alt="Pacific" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
                 <img src="pacis logo.jpg" alt="Pacis" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
-                <img src="sedgwick logo.jpg" alt="Sedgwick" class="h-10 md:h-14 transition-all cursor-pointer"
-                    loading="lazy">
+                <img src="sedgwick logo.jpg" alt="Sedgwick" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
                 <img src="signa logo.jpg" alt="Cigna" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
                 <img src="uap logo.png" alt="UAP" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
 
                 <!-- Repeat for smooth loop -->
                 <img src="AAR logo.jpg" alt="AAR" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
                 <img src="Bupa Logo.png" alt="Bupa" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
-                <img src="Heritage Logo.png" alt="Heritage" class="h-10 md:h-14 transition-all cursor-pointer"
-                    loading="lazy">
+                <img src="Heritage Logo.png" alt="Heritage" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
                 <img src="MTN logo.png" alt="MTN" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
-                <img src="alliance logo.png" alt="Alliance" class="h-10 md:h-14 transition-all cursor-pointer"
-                    loading="lazy">
+                <img src="alliance logo.png" alt="Alliance" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
                 <img src="axa logo.png" alt="AXA" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
-                <img src="eabl logo.svg" alt="EABL" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
+                <img src="Filedity logo.png" alt="Fidelity" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
+                <img src="MUA logo.webp" alt="MUA" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
+                <img src="CIC logo.png" alt="CIC" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
                 <img src="eagle logo.png" alt="Eagle" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
-                <img src="liaison logo.jpg" alt="Liaison" class="h-10 md:h-14 transition-all cursor-pointer"
-                    loading="lazy">
-                <img src="old mutual logo.png" alt="Old Mutual" class="h-10 md:h-14 transition-all cursor-pointer"
-                    loading="lazy">
-                <img src="pacific logo.png" alt="Pacific" class="h-10 md:h-14 transition-all cursor-pointer"
-                    loading="lazy">
+                <img src="liaison logo.jpg" alt="Liaison" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
+                <img src="old mutual logo.png" alt="Old Mutual" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
+                <img src="pacific logo.png" alt="Pacific" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
                 <img src="pacis logo.jpg" alt="Pacis" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
-                <img src="sedgwick logo.jpg" alt="Sedgwick" class="h-10 md:h-14 transition-all cursor-pointer"
-                    loading="lazy">
+                <img src="sedgwick logo.jpg" alt="Sedgwick" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
                 <img src="signa logo.jpg" alt="Cigna" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
                 <img src="uap logo.png" alt="UAP" class="h-10 md:h-14 transition-all cursor-pointer" loading="lazy">
             </div>
