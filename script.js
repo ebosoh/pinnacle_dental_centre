@@ -153,14 +153,14 @@
 // ===== SERVICES DATA & RENDERING =====
 const SERVICES = [
     {
-        id: 'invisalign',
-        name: 'Invisalign',
+        id: 'clear-aligners',
+        name: 'Clear Aligners',
         category: 'Orthodontics',
         icon: '🦷',
         accent: '#3198D8',
-        img: 'invisalign.jpg',
-        desc1: 'Discover the modern way to straighten your teeth with Invisalign aligners. Designed for comfort, convenience, and confidence.',
-        desc2: '<h4 class="text-xl font-bold text-dark mb-4">Transform Your Smile Journey</h4><p class="text-gray-600 mb-6">Invisalign offers a modern, nearly invisible way to correct misaligned teeth without the hassle of traditional metal braces. The custom-made, removable aligners make it easier to maintain your oral hygiene while undergoing treatment.</p><div class="flex flex-col items-center p-6 bg-blue-50 rounded-3xl border border-blue-100 text-center"><img src="QR Code.png" alt="Invisalign QR Code" class="w-32 h-32 rounded-xl shadow-lg mb-4"><p class="text-sm font-semibold text-gray-700">Scan the QR code to see your before and after invisalign results.</p></div>',
+        img: 'clear-aligners.jpg',
+        desc1: 'Discover the modern way to straighten your teeth with Clear Aligners. Designed for comfort, convenience, and confidence.',
+        desc2: '<h4 class="text-xl font-bold text-dark mb-4">Transform Your Smile Journey</h4><p class="text-gray-600 mb-6">Clear Aligners offer a modern, nearly invisible way to correct misaligned teeth without the hassle of traditional metal braces. The custom-made, removable aligners make it easier to maintain your oral hygiene while undergoing treatment.</p><div class="flex flex-col items-center p-6 bg-blue-50 rounded-3xl border border-blue-100 text-center"><img src="QR Code.png" alt="Clear Aligners QR Code" class="w-32 h-32 rounded-xl shadow-lg mb-4"><p class="text-sm font-semibold text-gray-700">Scan the QR code to see your before and after clear aligners results.</p></div>',
         isNew: true,
         features: [
             { title: "Virtually Invisible", desc: "Clear aligners that people won't notice" },
@@ -374,23 +374,23 @@ function closeServiceModal() {
 // ===== BLOG DATA & RENDERING =====
 const BLOG_POSTS = [
     {
-        id: 'invisalign-future',
-        title: 'Why Invisalign is the Future of Straighter Smiles.',
+        id: 'clear-aligners-future',
+        title: 'Why Clear Aligners are the Future of Straighter Smiles.',
         tag: 'Aesthetics',
         readTime: '5 Min Read',
         date: 'March 7, 2026',
-        img: 'invisalign.jpg',
+        img: 'clear-aligners.jpg',
         excerpt: 'Let’s be honest: when most of us think about straightening our teeth, we immediately picture the "metal-mouth" look from our high school days...',
         content: `
             <p>Let’s be honest: when most of us think about straightening our teeth, we immediately picture the "metal-mouth" look from our high school days. For a long time, that was the only way to get a perfect smile. But at Pinnacle Dental Centre, we’ve seen a massive shift in how our patients approach orthodontics.</p>
             
-            <p>Invisalign isn’t just a trendy alternative to braces; it is a total evolution in dental technology. Here is why clear aligners are quickly becoming the gold standard for the modern, busy Kenyan professional.</p>
+            <p>Clear Aligners aren’t just a trendy alternative to braces; it is a total evolution in dental technology. Here is why clear aligners are quickly becoming the gold standard for the modern, busy Kenyan professional.</p>
 
             <h3 class="text-2xl font-bold text-dark mt-8 mb-4">It’s Virtually Invisible</h3>
-            <p>The most obvious perk is right in the name. Whether you’re heading into a high-stakes board meeting at Sarit Centre or meeting friends for dinner in Westlands, you shouldn’t have to feel self-conscious about your smile. Invisalign aligners are made of a clear, medical-grade plastic that is nearly impossible to spot. You get the results without the "work-in-progress" look.</p>
+            <p>The most obvious perk is right in the name. Whether you’re heading into a high-stakes board meeting at Sarit Centre or meeting friends for dinner in Westlands, you shouldn’t have to feel self-conscious about your smile. Clear Aligners are made of a clear, medical-grade plastic that is nearly impossible to spot. You get the results without the "work-in-progress" look.</p>
 
             <h3 class="text-2xl font-bold text-dark mt-8 mb-4">Lifestyle Without Limits</h3>
-            <p>Traditional braces come with a long list of "don'ts"—don't eat popcorn, don't chew gum, don't bite into an apple. With Invisalign, the aligners are removable.</p>
+            <p>Traditional braces come with a long list of "don'ts"—don't eat popcorn, don't chew gum, don't bite into an apple. With Clear Aligners, the aligners are removable.</p>
             <ul class="list-disc pl-6 space-y-2">
                 <li><strong>Eat what you want:</strong> Just pop them out before meals.</li>
                 <li><strong>Better Hygiene:</strong> You can brush and floss normally without navigating around wires and brackets.</li>
@@ -398,12 +398,12 @@ const BLOG_POSTS = [
             </ul>
 
             <h3 class="text-2xl font-bold text-dark mt-8 mb-4">Precision Meets Speed</h3>
-            <p>The "Future" part of Invisalign comes down to the tech. We use advanced 3D imaging to map out your entire journey before you even start. You can actually see a digital preview of your final smile before the first tray even touches your teeth. Because the movements are planned with such precision, many patients find their treatment time is shorter than it would have been with traditional methods.</p>
+            <p>The "Future" part of Clear Aligners comes down to the tech. We use advanced 3D imaging to map out your entire journey before you even start. You can actually see a digital preview of your final smile before the first tray even touches your teeth. Because the movements are planned with such precision, many patients find their treatment time is shorter than it would have been with traditional methods.</p>
 
             <h3 class="text-2xl font-bold text-dark mt-8 mb-4">Fewer Clinic Visits</h3>
-            <p>We know your time is valuable. Traditional braces require frequent "tightening" appointments. Invisalign works through a series of trays that you swap out at home. This means fewer trips to the dentist and more time enjoying your life, with check-ins designed to fit your schedule.</p>
+            <p>We know your time is valuable. Traditional braces require frequent "tightening" appointments. Clear Aligners work through a series of trays that you swap out at home. This means fewer trips to the dentist and more time enjoying your life, with check-ins designed to fit your schedule.</p>
 
-            <h3 class="text-2xl font-bold text-dark mt-8 mb-4">Is Invisalign Right for You?</h3>
+            <h3 class="text-2xl font-bold text-dark mt-8 mb-4">Are Clear Aligners Right for You?</h3>
             <p>Whether you're looking to close a small gap or correct a more complex bite issue, the technology has come a long way. At Pinnacle Dental Centre, we specialize in creating these premium, seamless transitions.</p>
 
             <p class="font-bold text-pinnacle mt-8">Ready to see what your future smile looks like? Click the Book Appointment button above or send us a quick message via the WhatsApp button to schedule your consultation at our Sarit Centre clinic.</p>
@@ -479,11 +479,11 @@ function renderBlog() {
 // ===== BEFORE & AFTER DATA =====
 const COMPARISONS = [
     {
-        title: "Invisalign Transformation",
+        title: "Clear Aligners Transformation",
         subtitle: "6 Months Treatment • Perfect Alignment",
-        before: "Invisalign Treatment-before.jpg",
-        after: "Invisalign Treatment-after.jpg",
-        tag: "Invisalign"
+        before: "Clear-Aligners-Treatment-before.jpg",
+        after: "Clear-Aligners-Treatment-after.jpg",
+        tag: "Clear Aligners"
     },
     {
         title: "Braces Transformation",
