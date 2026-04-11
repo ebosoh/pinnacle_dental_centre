@@ -15,7 +15,7 @@
  */
 
 // ─── CONFIG: SET YOUR GAS WEB APP URL HERE ───────────────────
-const GAS_URL = 'https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec';
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbzuu5lo8A60vNV5vSNby36qDJo0Ix8aB8jjuNS1khaQzbTse6tlraPGkgO_G3-kYBUL/exec';
 // ─────────────────────────────────────────────────────────────
 
 const SESSION_KEY = 'pinnacle_dash_pwd';
