@@ -137,7 +137,15 @@ function formatDateInput(d) {
 function fmtDate(ts) {
     if (!ts) return '—';
     const d = (typeof ts === 'number') ? new Date(ts * 1000) : new Date(ts);
-    return d.toLocaleString('en-KE', { dateStyle: 'medium', timeStyle: 'short' });
+    // Explicitly format to: Apr 12, 2026, 9:32 PM
+    return d.toLocaleString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true
+    });
 }
 
 function fmtDuration(secs) {
@@ -635,7 +643,10 @@ function buildTranscriptDetail(conv) {
         '<div style="font-family:Outfit,sans-serif;font-size:18px;font-weight:700;color:#F1F5F9">' + escHtml(caller) + '</div>' +
         (isBook ? '<span class="conv-tag tag-booking">✓ Booking Made</span>' : '') +
         '</div>' +
-        '<div style="font-size:11px;color:#475569;margin-top:4px">ID: ' + escHtml(String(convId)) + '</div>' +
+        '<div style="display:flex;align-items:center;justify-content:space-between;margin-top:6px">' +
+        '<div style="font-size:12px;color:#94A3B8;font-weight:500">📅 ' + escHtml(date) + '</div>' +
+        '<div style="font-size:10px;color:#475569">ID: ' + escHtml(String(convId)) + '</div>' +
+        '</div>' +
         '</div>';
 
     html += '<div class="detail-tabs">' +
