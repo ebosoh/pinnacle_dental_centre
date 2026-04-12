@@ -128,7 +128,10 @@ function selectSubTab(tab) {
 //  DATE HELPERS
 // ============================================================
 function formatDateInput(d) {
-    return d.toISOString().substring(0, 10);
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    const dd = String(d.getDate()).padStart(2, '0');
+    return yyyy + '-' + mm + '-' + dd;
 }
 
 function fmtDate(ts) {
@@ -260,7 +263,7 @@ function renderAnalytics(data, startDate, endDate) {
     setText('kpi-flagged-count', (data.flaggedCount || 0) + ' of ' + total + ' users');
 
     // ── Trend Chart ──────────────────────────────────────────
-    renderTrendChart(data.dailyTrend || {});
+    renderTrendChart(data.dailyTrend || {}, startDate, endDate);
 
     // ── Services ─────────────────────────────────────────────
     renderDonutChart('services-chart', 'services-table', data.services || [], servicesChartInst, function (i) { servicesChartInst = i; });
@@ -284,36 +287,52 @@ function setText(id, val) {
 }
 
 // ── Trend Line Chart ─────────────────────────────────────────
-function renderTrendChart(dailyTrend) {
+function renderTrendChart(dailyTrend, startDateStr, endDateStr) {
     if (trendChartInst) { trendChartInst.destroy(); trendChartInst = null; }
 
-    const sortedDays = Object.keys(dailyTrend).sort();
-    const counts = sortedDays.map(d => dailyTrend[d]);
+    console.log("Rendering Trend Chart with data:", dailyTrend);
+
+    // If we have date strings from the filter, fill in the gaps with 0s
+    let sortedDays = [];
+    if (startDateStr && endDateStr) {
+        const start = new Date(startDateStr + 'T00:00:00');
+        const end = new Date(endDateStr + 'T00:00:00');
+        const curr = new Date(start);
+        while (curr <= end) {
+            const yyyy = curr.getFullYear();
+            const mm = String(curr.getMonth() + 1).padStart(2, '0');
+            const dd = String(curr.getDate()).padStart(2, '0');
+            const key = yyyy + '-' + mm + '-' + dd;
+            sortedDays.push(key);
+            curr.setDate(curr.getDate() + 1);
+        }
+    } else {
+        sortedDays = Object.keys(dailyTrend).sort();
+    }
+
+    const counts = sortedDays.map(d => dailyTrend[d] || 0);
 
     const ctx = document.getElementById('trend-chart').getContext('2d');
-
     const gradient = ctx.createLinearGradient(0, 0, 0, 220);
     gradient.addColorStop(0, 'rgba(49,152,216,0.3)');
     gradient.addColorStop(1, 'rgba(49,152,216,0)');
 
     trendChartInst = new Chart(ctx, {
-        type: 'line',
+        type: 'bar',
         data: {
             labels: sortedDays.map(d => {
-                const dt = new Date(d + 'T00:00:00');
+                // Parse correctly across browsers: YYYY-MM-DD
+                const parts = d.split('-');
+                const dt = new Date(parts[0], parts[1] - 1, parts[2]);
                 return dt.toLocaleDateString('en-KE', { month: 'short', day: 'numeric' });
             }),
             datasets: [{
                 data: counts,
+                backgroundColor: 'rgba(49,152,216,0.7)',
                 borderColor: '#3198D8',
-                backgroundColor: gradient,
-                fill: true,
-                tension: 0.4,
-                pointRadius: counts.length > 30 ? 0 : 4,
-                pointBackgroundColor: '#3198D8',
-                pointBorderColor: '#0F172A',
-                pointBorderWidth: 2,
-                borderWidth: 2.5
+                borderWidth: 1,
+                borderRadius: 4,
+                hoverBackgroundColor: '#3198D8'
             }]
         },
         options: {
@@ -334,12 +353,12 @@ function renderTrendChart(dailyTrend) {
             },
             scales: {
                 x: {
-                    grid: { color: 'rgba(255,255,255,0.04)' },
-                    ticks: { color: '#64748B', maxTicksLimit: 10 }
+                    grid: { display: false },
+                    ticks: { color: '#64748B', maxTicksLimit: 12 }
                 },
                 y: {
                     grid: { color: 'rgba(255,255,255,0.04)' },
-                    ticks: { color: '#64748B', stepSize: 1 },
+                    ticks: { color: '#64748B', stepSize: 1, precision: 0 },
                     beginAtZero: true
                 }
             }
@@ -352,10 +371,13 @@ function renderDonutChart(canvasId, tableId, items, oldInst, setInst) {
     if (oldInst) oldInst.destroy();
 
     if (!items || items.length === 0) {
-        document.getElementById(canvasId).parentElement.innerHTML = '<p style="color:#64748B;font-size:13px;padding:20px">No data yet</p>';
-        document.getElementById(tableId).innerHTML = '';
+        // Toggle visibility instead of destroying HTML
+        document.getElementById(canvasId).style.display = 'none';
+        document.getElementById(tableId).innerHTML = '<p style="color:#64748B;font-size:13px;padding:20px">No data yet</p>';
         return;
     }
+    document.getElementById(canvasId).style.display = 'block';
+    document.getElementById(tableId).innerHTML = '';
 
     const labels = items.map(i => i.label);
     const counts = items.map(i => i.count);
@@ -414,9 +436,22 @@ function renderHBarChart(canvasId, items, oldInst, setInst, title) {
     if (!el) return;
 
     if (!items || items.length === 0) {
-        el.parentElement.innerHTML = '<p style="color:#64748B;font-size:13px;padding:20px">No data yet</p>';
+        el.style.display = 'none';
+        const msgId = canvasId + '-msg';
+        if (!document.getElementById(msgId)) {
+            const p = document.createElement('p');
+            p.id = msgId;
+            p.style.color = '#64748B';
+            p.style.fontSize = '13px';
+            p.style.padding = '20px';
+            p.textContent = 'No data yet';
+            el.parentElement.appendChild(p);
+        }
         return;
     }
+    el.style.display = 'block';
+    const msg = document.getElementById(canvasId + '-msg');
+    if (msg) msg.remove();
 
     // Take top 12 items
     const top = items.slice(0, 12);
