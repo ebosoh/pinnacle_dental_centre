@@ -507,7 +507,7 @@ function renderConversationList(convs) {
 
     listEl.innerHTML = convs.map(function (conv, idx) {
         const caller = extractCallerLabel(conv);
-        const date = fmtDate(conv.start_time || conv.created_at);
+        const date = fmtDate(conv.start_time_unix_secs ? conv.start_time_unix_secs * 1000 : (conv.start_time || conv.created_at));
         const lang = conv._language || '—';
         const origin = conv._origin || '—';
         const isBook = conv._isBooking;
@@ -568,7 +568,7 @@ function selectConversation(idx) {
 
 function buildTranscriptDetail(conv) {
     const caller = extractCallerLabel(conv);
-    const date = fmtDate(conv.start_time || conv.created_at);
+    const date = fmtDate(conv.start_time_unix_secs ? conv.start_time_unix_secs * 1000 : (conv.start_time || conv.created_at));
     const dur = fmtDuration(conv.duration || conv.conversation_duration_secs || conv.duration_secs || 0);
     const lang = conv._language || '—';
     const services = (conv._services || []).join(', ') || '—';
