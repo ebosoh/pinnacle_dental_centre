@@ -105,6 +105,8 @@ function switchTab(tab) {
     document.getElementById('tab-' + tab).classList.remove('hidden');
 
     if (tab === 'transcripts' && allConversations.length === 0) {
+        // Clear previous errors when switching
+        document.getElementById('transcripts-error').classList.add('hidden');
         loadTranscripts();
     }
 }
@@ -169,8 +171,13 @@ function jsonpFetch(params, callbackFn) {
 //  ANALYTICS TAB
 // ============================================================
 function refreshData() {
+    // Show visual feedback immediately
+    console.log("Refreshing all data...");
     loadAnalytics();
-    if (!document.getElementById('tab-transcripts').classList.contains('hidden') || allConversations.length > 0) {
+
+    // Always refresh transcripts if we have them or we are on the tab
+    const isTranscriptTabVisible = !document.getElementById('tab-transcripts').classList.contains('hidden');
+    if (isTranscriptTabVisible || allConversations.length > 0) {
         loadTranscripts();
     }
 }
