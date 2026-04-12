@@ -242,6 +242,7 @@ function loadAnalytics() {
         }
 
         const data = result.data || result;
+        console.log('[Dashboard] Analytics data received:', JSON.stringify(data.dailyTrend));
         renderAnalytics(data, startDate, endDate);
     });
 }
