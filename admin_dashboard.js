@@ -170,7 +170,9 @@ function jsonpFetch(params, callbackFn) {
 // ============================================================
 function refreshData() {
     loadAnalytics();
-    if (allConversations.length > 0) loadTranscripts();
+    if (!document.getElementById('tab-transcripts').classList.contains('hidden') || allConversations.length > 0) {
+        loadTranscripts();
+    }
 }
 
 function loadAnalytics() {
@@ -196,7 +198,7 @@ function loadAnalytics() {
             return;
         }
 
-        if (result.error === 'Unauthorized') {
+        if (result.status === 'error' && result.message && result.message.includes('Unauthorized')) {
             sessionStorage.removeItem(SESSION_KEY);
             document.getElementById('login-error').classList.remove('hidden');
             logout();
@@ -474,7 +476,7 @@ function loadTranscripts() {
             return;
         }
 
-        if (result.error === 'Unauthorized') {
+        if (result.status === 'error' && result.message && result.message.includes('Unauthorized')) {
             sessionStorage.removeItem(SESSION_KEY);
             logout();
             return;
@@ -486,8 +488,8 @@ function loadTranscripts() {
             return;
         }
 
-        allConversations = (result.data && result.data.conversations) || result.data || [];
-        const total = (result.data && result.data.total) || allConversations.length;
+        allConversations = (result.data && result.data.conversations) || result.conversations || [];
+        const total = (result.data && result.data.total) || result.total || allConversations.length;
 
         document.getElementById('transcripts-content').classList.remove('hidden');
         document.getElementById('conv-count').textContent = total;
