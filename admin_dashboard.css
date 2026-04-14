@@ -1575,3 +1575,34 @@ body {
 .ql-snow .ql-picker {
     color: #94A3B8 !important;
 }
+
+/* ============================================================
+   UPLOAD STATUS & ANIMATIONS
+   ============================================================ */
+.upload-status {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 16px;
+    padding: 12px 20px;
+    background: rgba(49, 152, 216, 0.1);
+    border: 1px solid rgba(49, 152, 216, 0.3);
+    border-radius: 12px;
+    color: #3198D8;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.animate-spin {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}

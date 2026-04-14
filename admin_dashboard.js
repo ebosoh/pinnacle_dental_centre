@@ -350,10 +350,24 @@ function confirmDelete(id) {
  * Media Library Functions
  */
 function renderMediaLibrary() {
-    if (!adminDataCache || !adminDataCache.media) return;
+    if (!adminDataCache) return;
 
     const grid = document.getElementById('media-grid');
-    grid.innerHTML = adminDataCache.media.map(file => `
+    const media = adminDataCache.media || [];
+
+    if (media.length === 0) {
+        grid.innerHTML = `
+            <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; background: rgba(30, 41, 59, 0.3); border-radius: 24px; border: 2px dashed rgba(255, 255, 255, 0.05);">
+                <i data-lucide="image" style="width: 48px; height: 48px; color: #475569; margin-bottom: 16px;"></i>
+                <p style="color: #94A3B8; font-size: 15px;">Your media library is empty.</p>
+                <p style="color: #64748B; font-size: 13px; margin-top: 8px;">Upload images to use them in your services and blog posts.</p>
+            </div>
+        `;
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+        return;
+    }
+
+    grid.innerHTML = media.map(file => `
         <div class="media-item">
             <img src="${file.publicUrl}" alt="${file.fileName}" loading="lazy">
             <div class="media-overlay">
@@ -376,8 +390,13 @@ function handleMediaUpload(e) {
     const reader = new FileReader();
     reader.onload = function (event) {
         const base64 = event.target.result;
+        const statusEl = document.getElementById('media-upload-status');
+        const statusText = document.getElementById('media-status-text');
 
-        // Use POST instead of JSONP for large media data
+        // Show status
+        statusEl.classList.remove('hidden');
+        statusText.innerText = 'Uploading to Drive...';
+
         gasPost({
             action: 'adminAction',
             subAction: 'uploadMedia',
@@ -387,12 +406,17 @@ function handleMediaUpload(e) {
         }).then(result => {
             if (result.status === 'error') {
                 alert('Upload failed: ' + result.message);
+                statusEl.classList.add('hidden');
             } else {
-                alert('Upload successful!');
-                loadAdminContent();
+                statusText.innerText = 'Success! File uploaded.';
+                setTimeout(() => {
+                    statusEl.classList.add('hidden');
+                    loadAdminContent();
+                }, 1500);
             }
         }).catch(err => {
             alert('Network error: ' + err.message);
+            statusEl.classList.add('hidden');
         });
     };
     reader.readAsDataURL(file);
