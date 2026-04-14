@@ -378,13 +378,15 @@
                     <h2 class="dash-title">Media Library</h2>
                     <div class="upload-zone" id="upload-zone">
                         <input type="file" id="media-upload-input" class="hidden" accept="image/*,video/*">
-                        <button class="add-btn" onclick="document.getElementById('media-upload-input').click()">
-                            <i data-lucide="upload"></i> Upload Media
-                        </button>
-                        <button class="add-btn" onclick="syncMediaWithDrive()"
-                            style="background:rgba(49, 152, 216, 0.2);color:#3198D8;border:1px solid rgba(49, 152, 216, 0.3)">
-                            <i data-lucide="refresh-cw"></i> Sync with Drive
-                        </button>
+                        <div style="display:flex; gap:12px; align-items:center;">
+                            <button class="add-btn" onclick="document.getElementById('media-upload-input').click()">
+                                <i data-lucide="upload"></i> Upload Media
+                            </button>
+                            <button class="add-btn" onclick="syncMediaWithDrive()"
+                                style="background:rgba(49, 152, 216, 0.2);color:#3198D8;border:1px solid rgba(49, 152, 216, 0.3)">
+                                <i data-lucide="refresh-cw"></i> Sync with Drive
+                            </button>
+                        </div>
                         <p class="upload-hint">Upload images for services, blog posts, and products.</p>
                         <div id="media-upload-status" class="upload-status hidden">
                             <i data-lucide="loader-2" class="animate-spin"></i>
