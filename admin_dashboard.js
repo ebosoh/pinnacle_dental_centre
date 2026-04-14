@@ -468,7 +468,35 @@ function copyToClipboard(text) {
     });
 }
 
-// Sub-tabs inside Detail Panel
+function syncMediaWithDrive() {
+    if (!confirm('This will scan your Google Drive folder and update the database. Continue?')) return;
+
+    const statusEl = document.getElementById('media-upload-status');
+    const statusText = document.getElementById('media-status-text');
+
+    statusEl.classList.remove('hidden');
+    statusText.innerText = 'Syncing with Drive...';
+
+    gasPost({
+        action: 'adminAction',
+        subAction: 'syncMedia',
+        password: sessionStorage.getItem(SESSION_KEY)
+    }).then(result => {
+        if (result.status === 'error') {
+            alert('Sync failed: ' + result.message);
+            statusEl.classList.add('hidden');
+        } else {
+            statusText.innerText = `Sync complete! (${result.synced} items found)`;
+            setTimeout(() => {
+                statusEl.classList.add('hidden');
+                loadAdminContent();
+            }, 2000);
+        }
+    }).catch(err => {
+        alert('Sync error: ' + err.message);
+        statusEl.classList.add('hidden');
+    });
+}
 function selectSubTab(tab) {
     document.querySelectorAll('.sub-tab-btn').forEach(b => b.classList.remove('active'));
     document.querySelectorAll('.detail-tab-content').forEach(c => c.classList.add('detail-tab-hidden'));
