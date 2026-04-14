@@ -171,6 +171,7 @@ function loadAdminContent() {
         }
 
         adminDataCache = result;
+        console.log('Admin Data Cache:', adminDataCache);
         renderCurrentContentTable();
         renderMediaLibrary();
     });
