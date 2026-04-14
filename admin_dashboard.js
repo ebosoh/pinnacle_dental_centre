@@ -367,18 +367,25 @@ function renderMediaLibrary() {
         return;
     }
 
-    grid.innerHTML = media.map(file => `
-        <div class="media-item">
-            <img src="${file.publicUrl}" alt="${file.fileName}" loading="lazy">
-            <div class="media-overlay">
-                <span class="media-name">${file.fileName}</span>
-                <button class="copy-url-btn" onclick="copyToClipboard('${file.publicUrl}')">Copy URL</button>
-                <button class="delete-btn" style="color:white;margin-top:10px" onclick="confirmDeleteMedia('${file.id}')">
-                    <i data-lucide="trash-2"></i>
-                </button>
+    grid.innerHTML = media.map(file => {
+        // Use a more reliable thumbnail URL for display
+        const thumbUrl = `https://drive.google.com/thumbnail?id=${file.id}&sz=w800`;
+        const fileName = file.fileName || file.id;
+
+        return `
+            <div class="media-item">
+                <img src="${thumbUrl}" alt="${fileName}" loading="lazy" 
+                     onerror="this.src='https://placehold.co/400x400/1E293B/64748B?text=Error+Loading+Image'; console.error('Image failed to load:', this.src);">
+                <div class="media-overlay">
+                    <span class="media-name">${fileName}</span>
+                    <button class="copy-url-btn" onclick="copyToClipboard('${file.publicUrl}')">Copy URL</button>
+                    <button class="delete-btn" style="color:white;margin-top:10px" onclick="confirmDeleteMedia('${file.id}')">
+                        <i data-lucide="trash-2"></i>
+                    </button>
+                </div>
             </div>
-        </div>
-    `).join('');
+        `;
+    }).join('');
 
     if (typeof lucide !== 'undefined') lucide.createIcons();
 }
