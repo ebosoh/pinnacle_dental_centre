@@ -302,7 +302,8 @@ function saveEntry(e) {
     btn.disabled = true;
     spinner.classList.remove('hidden');
 
-    jsonpFetch({
+    // Use POST instead of JSONP for potentially large content
+    gasPost({
         action: 'adminAction',
         subAction: 'saveEntry',
         table: currentContentType === 'blog' ? 'BlogPosts' :
@@ -310,17 +311,21 @@ function saveEntry(e) {
                 currentContentType === 'products' ? 'Products' : 'Comparisons',
         entry: JSON.stringify(entry),
         password: sessionStorage.getItem(SESSION_KEY)
-    }, function (err, result) {
+    }).then(result => {
         btn.disabled = false;
         spinner.classList.add('hidden');
 
-        if (err) {
-            alert('Failed to save: ' + err.message);
+        if (result.status === 'error') {
+            alert('Save failed: ' + result.message);
             return;
         }
 
         closeEntryModal();
-        loadAdminContent(); // Reload table
+        loadAdminContent();
+    }).catch(err => {
+        btn.disabled = false;
+        spinner.classList.add('hidden');
+        alert('Error saving: ' + err.message);
     });
 }
 
@@ -372,18 +377,22 @@ function handleMediaUpload(e) {
     reader.onload = function (event) {
         const base64 = event.target.result;
 
-        jsonpFetch({
+        // Use POST instead of JSONP for large media data
+        gasPost({
             action: 'adminAction',
             subAction: 'uploadMedia',
             file: base64,
             fileName: file.name,
             password: sessionStorage.getItem(SESSION_KEY)
-        }, function (err, result) {
-            if (err) alert('Upload failed: ' + err.message);
-            else {
+        }).then(result => {
+            if (result.status === 'error') {
+                alert('Upload failed: ' + result.message);
+            } else {
                 alert('Upload successful!');
                 loadAdminContent();
             }
+        }).catch(err => {
+            alert('Network error: ' + err.message);
         });
     };
     reader.readAsDataURL(file);
@@ -505,6 +514,24 @@ function jsonpFetch(params, callbackFn) {
     }, 45000);
 
     document.head.appendChild(script);
+}
+
+/**
+ * Robust POST Fetch for GAS (handles large payloads)
+ */
+async function gasPost(params) {
+    try {
+        const response = await fetch(GAS_URL, {
+            method: 'POST',
+            mode: 'cors',
+            body: JSON.stringify(params)
+        });
+        const result = await response.json();
+        return result;
+    } catch (err) {
+        console.error('GAS POST Error:', err);
+        throw new Error('Failed to connect to the server. Your data might be too large or the server is unavailable.');
+    }
 }
 
 // ============================================================
