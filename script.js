@@ -151,7 +151,7 @@
 })();
 
 // ===== SERVICES DATA & RENDERING =====
-const SERVICES = [
+let SERVICES = [
     {
         id: 'clear-aligners',
         name: 'Clear Aligners',
@@ -372,7 +372,7 @@ function closeServiceModal() {
 }
 
 // ===== BLOG DATA & RENDERING =====
-const BLOG_POSTS = [
+let BLOG_POSTS = [
     {
         id: 'clear-aligners-future',
         title: 'Why Clear Aligners are the Future of Straighter Smiles.',
@@ -477,7 +477,7 @@ function renderBlog() {
 
 
 // ===== BEFORE & AFTER DATA =====
-const COMPARISONS = [
+let COMPARISONS = [
     {
         title: "Clear Aligners Transformation",
         subtitle: "6 Months Treatment • Perfect Alignment",
@@ -632,8 +632,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // 1. Product Data
-
-const PRODUCTS = [
+let PRODUCTS = [
     {
         id: 1,
         name: "Bitvae C6 Water Dental Flosser",
@@ -1001,9 +1000,9 @@ if (bookingForm) {
         e.preventDefault();
         const submitBtn = bookingForm.querySelector('button[type="submit"]');
         if (!submitBtn) return;
-        
+
         const originalBtnText = submitBtn.innerHTML;
-        
+
         // Disable button and show loading state
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<i class="lucide-loader-2 animate-spin"></i> Processing...';
@@ -1021,10 +1020,10 @@ if (bookingForm) {
 
         try {
             console.log('--- BOOKING SUBMISSION START (JSONP) ---');
-            
+
             // Create a unique callback name
             const callbackName = 'gas_callback_' + Math.round(Math.random() * 1000000);
-            
+
             // Construct the URL with parameters for doGet
             const params = new URLSearchParams({
                 action: 'createBooking',
@@ -1040,7 +1039,7 @@ if (bookingForm) {
             const result = await new Promise((resolve, reject) => {
                 const script = document.createElement('script');
                 script.src = `${WEB_APP_URL}?${params.toString()}`;
-                
+
                 window[callbackName] = (response) => {
                     delete window[callbackName];
                     document.body.removeChild(script);
@@ -1054,7 +1053,7 @@ if (bookingForm) {
                 };
 
                 document.body.appendChild(script);
-                
+
                 // Timeout after 30 seconds
                 setTimeout(() => {
                     if (window[callbackName]) {
@@ -1087,14 +1086,64 @@ if (bookingForm) {
     });
 }
 
+// Global Content Fetching
+async function fetchDynamicContent() {
+    try {
+        const callbackName = 'content_cb_' + Date.now();
+        const params = new URLSearchParams({
+            action: 'getAdminContent',
+            pwd: 'pinnacle2024admin' // Public read password if needed, or open endpoint
+        });
+
+        const result = await new Promise((resolve, reject) => {
+            const script = document.createElement('script');
+            script.src = `${WEB_APP_URL}?${params.toString()}&callback=${callbackName}`;
+            window[callbackName] = (res) => {
+                delete window[callbackName];
+                document.body.removeChild(script);
+                resolve(res);
+            };
+            script.onerror = () => reject(new Error('Fetch failed'));
+            document.body.appendChild(script);
+            setTimeout(() => { if (window[callbackName]) reject(new Error('Timeout')); }, 10000);
+        });
+
+        if (result && result.status === 'success' && result.data) {
+            const d = result.data;
+            if (d.services && d.services.length > 0) SERVICES = d.services.map(s => {
+                try { if (typeof s.features === 'string') s.features = JSON.parse(s.features); } catch (e) { }
+                return s;
+            });
+            if (d.blog && d.blog.length > 0) BLOG_POSTS = d.blog;
+            if (d.comparisons && d.comparisons.length > 0) COMPARISONS = d.comparisons;
+            if (d.products && d.products.length > 0) PRODUCTS = d.products.map(p => {
+                try { if (typeof p.images === 'string') p.images = JSON.parse(p.images); } catch (e) { }
+                try { if (typeof p.features === 'string') p.features = JSON.parse(p.features); } catch (e) { }
+                return p;
+            });
+
+            // Re-render components
+            renderServices();
+            renderBlog();
+            renderComparisons();
+            renderProducts();
+        }
+    } catch (e) {
+        console.warn('Dynamic content fetch failed, using fallbacks:', e);
+    }
+}
+
 // Event Listeners
 document.addEventListener('DOMContentLoaded', () => {
-    // Initial Render
+    // Initial Render with fallbacks
     renderServices();
     renderBlog();
     renderComparisons();
     renderProducts();
     updateCartUI();
+
+    // Fetch dynamic content
+    fetchDynamicContent();
 
     // Modal Close Events
     document.getElementById('modal-close')?.addEventListener('click', closeServiceModal);

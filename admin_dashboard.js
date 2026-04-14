@@ -106,10 +106,326 @@ function switchTab(tab) {
     document.getElementById('tab-' + tab).classList.remove('hidden');
 
     if (tab === 'transcripts' && allConversations.length === 0) {
-        // Clear previous errors when switching
         document.getElementById('transcripts-error').classList.add('hidden');
         loadTranscripts();
+    } else if (tab === 'content') {
+        loadAdminContent();
+    } else if (tab === 'media') {
+        loadAdminContent(); // Media is included in admin content
     }
+}
+
+/**
+ * ============================================================
+ *  ADMIN: CONTENT & MEDIA MANAGEMENT
+ * ============================================================
+ */
+
+let quill = null;
+let currentContentType = 'services';
+let adminDataCache = null;
+
+// Initialize Quill when DOM loads
+window.addEventListener('DOMContentLoaded', function () {
+    if (typeof Quill !== 'undefined') {
+        quill = new Quill('#editor-container', {
+            theme: 'snow',
+            modules: {
+                toolbar: [
+                    [{ 'header': [1, 2, 3, false] }],
+                    ['bold', 'italic', 'underline'],
+                    ['link', 'blockquote', 'code-block'],
+                    [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                    ['clean']
+                ]
+            }
+        });
+    }
+
+    const uploadInput = document.getElementById('media-upload-input');
+    if (uploadInput) {
+        uploadInput.addEventListener('change', handleMediaUpload);
+    }
+});
+
+/**
+ * Load all admin data from GAS
+ */
+function loadAdminContent() {
+    const pwd = sessionStorage.getItem(SESSION_KEY) || '';
+
+    // Show spinner if needed (optional, generic dashboard loading might handle it)
+
+    jsonpFetch({
+        action: 'getAdminContent',
+        password: pwd
+    }, function (err, result) {
+        if (err) {
+            alert('Error loading content: ' + err.message);
+            return;
+        }
+
+        if (result.status === 'error') {
+            alert('Error: ' + result.message);
+            return;
+        }
+
+        adminDataCache = result;
+        renderCurrentContentTable();
+        renderMediaLibrary();
+    });
+}
+
+/**
+ * Switch between Services/Blog/Products/Comparisons
+ */
+function switchContentType(type) {
+    currentContentType = type;
+    document.querySelectorAll('.content-sub-tab').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.type === type);
+    });
+    renderCurrentContentTable();
+}
+
+/**
+ * Render table based on selected content type
+ */
+function renderCurrentContentTable() {
+    if (!adminDataCache) return;
+
+    const tableHead = document.getElementById('data-table-head');
+    const tableBody = document.getElementById('data-table-body');
+    const data = adminDataCache[currentContentType] || [];
+
+    if (data.length === 0) {
+        tableHead.innerHTML = '';
+        tableBody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:40px;color:#64748B">No entries found. Click "Add New Entry" to start.</td></tr>';
+        return;
+    }
+
+    // Determine headers based on first object
+    const headers = Object.keys(data[0]);
+    tableHead.innerHTML = '<tr>' +
+        headers.map(h => '<th>' + h.toUpperCase() + '</th>').join('') +
+        '<th>ACTIONS</th></tr>';
+
+    tableBody.innerHTML = data.map((entry, idx) => `
+        <tr>
+            ${headers.map(h => `<td>${truncate(String(entry[h]), 50)}</td>`).join('')}
+            <td>
+                <div class="action-btns">
+                    <button class="edit-btn" onclick="openEntryModal(${idx})" title="Edit"><i data-lucide="edit-3"></i></button>
+                    <button class="delete-btn" onclick="confirmDelete('${entry.id}')" title="Delete"><i data-lucide="trash-2"></i></button>
+                </div>
+            </td>
+        </tr>
+    `).join('');
+
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+}
+
+/**
+ * Handle Add/Edit Modal
+ */
+function openEntryModal(idx) {
+    const modal = document.getElementById('entry-modal');
+    const title = document.getElementById('modal-entry-title');
+    const formFields = document.getElementById('form-fields');
+    const entry = idx !== null ? adminDataCache[currentContentType][idx] : null;
+
+    title.innerText = (entry ? 'Edit ' : 'Add New ') + currentContentType.slice(0, -1);
+
+    // Auto-generate fields based on schema or existing data
+    // For a real app, we should have a fixed schema per type
+    const schemas = {
+        services: ['id', 'name', 'category', 'icon', 'accent', 'img', 'desc1', 'desc2', 'isNew', 'features'],
+        blog: ['id', 'title', 'tag', 'readTime', 'date', 'img', 'excerpt', 'content'],
+        products: ['id', 'name', 'price', 'desc', 'availability', 'delivery', 'images', 'features'],
+        comparisons: ['id', 'title', 'subtitle', 'before', 'after', 'tag']
+    };
+
+    const fields = schemas[currentContentType] || (entry ? Object.keys(entry) : []);
+
+    formFields.innerHTML = fields.map(f => {
+        if (f === 'content' && currentContentType === 'blog') return ''; // Handled by Quill
+        if (f === 'id' && !entry) return `<input type="hidden" name="id" value="">`; // Hidden ID for new entries
+
+        let val = entry ? entry[f] : '';
+        let type = 'text';
+        if (f === 'desc1' || f === 'desc2' || f === 'desc' || f === 'excerpt') type = 'textarea';
+
+        return `
+            <div class="form-field">
+                <label class="form-label">${f.toUpperCase()}</label>
+                ${type === 'textarea'
+                ? `<textarea name="${f}" class="form-textarea" placeholder="Enter ${f}...">${val}</textarea>`
+                : `<input type="${type}" name="${f}" value="${escHtml(val)}" class="form-input" placeholder="Enter ${f}...">`
+            }
+            </div>
+        `;
+    }).join('');
+
+    // Handle Quill for Blog
+    if (currentContentType === 'blog') {
+        document.getElementById('wysiwyg-container').classList.remove('hidden');
+        if (quill) {
+            quill.root.innerHTML = entry ? (entry.content || '') : '';
+        }
+    } else {
+        document.getElementById('wysiwyg-container').classList.add('hidden');
+    }
+
+    modal.classList.remove('hidden');
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+}
+
+function closeEntryModal() {
+    document.getElementById('entry-modal').classList.add('hidden');
+}
+
+/**
+ * Save Entry to GAS
+ */
+function saveEntry(e) {
+    e.preventDefault();
+    const btn = e.target.closest('button');
+    const spinner = document.getElementById('save-spinner');
+
+    const formData = new FormData(document.getElementById('entry-form'));
+    const entry = {};
+    formData.forEach((val, key) => entry[key] = val);
+
+    if (currentContentType === 'blog' && quill) {
+        entry.content = quill.root.innerHTML;
+    }
+
+    btn.disabled = true;
+    spinner.classList.remove('hidden');
+
+    jsonpFetch({
+        action: 'adminAction',
+        subAction: 'saveEntry',
+        table: currentContentType === 'blog' ? 'BlogPosts' :
+            currentContentType === 'services' ? 'Services' :
+                currentContentType === 'products' ? 'Products' : 'Comparisons',
+        entry: JSON.stringify(entry),
+        password: sessionStorage.getItem(SESSION_KEY)
+    }, function (err, result) {
+        btn.disabled = false;
+        spinner.classList.add('hidden');
+
+        if (err) {
+            alert('Failed to save: ' + err.message);
+            return;
+        }
+
+        closeEntryModal();
+        loadAdminContent(); // Reload table
+    });
+}
+
+function confirmDelete(id) {
+    if (confirm('Are you sure you want to delete this entry?')) {
+        jsonpFetch({
+            action: 'adminAction',
+            subAction: 'deleteEntry',
+            table: currentContentType === 'blog' ? 'BlogPosts' :
+                currentContentType === 'services' ? 'Services' :
+                    currentContentType === 'products' ? 'Products' : 'Comparisons',
+            id: id,
+            password: sessionStorage.getItem(SESSION_KEY)
+        }, function (err, result) {
+            if (err) alert('Delete failed: ' + err.message);
+            else loadAdminContent();
+        });
+    }
+}
+
+/**
+ * Media Library Functions
+ */
+function renderMediaLibrary() {
+    if (!adminDataCache || !adminDataCache.media) return;
+
+    const grid = document.getElementById('media-grid');
+    grid.innerHTML = adminDataCache.media.map(file => `
+        <div class="media-item">
+            <img src="${file.publicUrl}" alt="${file.fileName}" loading="lazy">
+            <div class="media-overlay">
+                <span class="media-name">${file.fileName}</span>
+                <button class="copy-url-btn" onclick="copyToClipboard('${file.publicUrl}')">Copy URL</button>
+                <button class="delete-btn" style="color:white;margin-top:10px" onclick="confirmDeleteMedia('${file.id}')">
+                    <i data-lucide="trash-2"></i>
+                </button>
+            </div>
+        </div>
+    `).join('');
+
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+}
+
+function handleMediaUpload(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function (event) {
+        const base64 = event.target.result;
+
+        jsonpFetch({
+            action: 'adminAction',
+            subAction: 'uploadMedia',
+            file: base64,
+            fileName: file.name,
+            password: sessionStorage.getItem(SESSION_KEY)
+        }, function (err, result) {
+            if (err) alert('Upload failed: ' + err.message);
+            else {
+                alert('Upload successful!');
+                loadAdminContent();
+            }
+        });
+    };
+    reader.readAsDataURL(file);
+}
+
+function confirmDeleteMedia(id) {
+    if (confirm('Delete this media file?')) {
+        jsonpFetch({
+            action: 'adminAction',
+            subAction: 'deleteEntry',
+            table: 'MediaLibrary',
+            id: id,
+            password: sessionStorage.getItem(SESSION_KEY)
+        }, function (err, result) {
+            if (err) alert('Delete failed: ' + err.message);
+            else loadAdminContent();
+        });
+    }
+}
+
+/**
+ * Utility
+ */
+function truncate(str, len) {
+    if (!str || str.length <= len) return str;
+    return str.substring(0, len) + '...';
+}
+
+function escHtml(str) {
+    if (!str) return '';
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+}
+
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+        alert('URL copied to clipboard!');
+    });
 }
 
 // Sub-tabs inside Detail Panel
