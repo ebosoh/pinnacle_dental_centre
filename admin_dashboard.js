@@ -571,7 +571,7 @@ function jsonpFetch(params, callbackFn) {
         delete window[callbackName];
         if (script.parentNode) document.head.removeChild(script);
         callbackFn(new Error('Request timed out (45s). The GAS endpoint may be slow — try again.'));
-    }, 45000);
+    }, 90000);
 
     document.head.appendChild(script);
 }
