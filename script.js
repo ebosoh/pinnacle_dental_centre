@@ -888,7 +888,7 @@ function handleCheckout() {
     message += `\n--- Customer Details ---\nKindly fill your details:\nName:\nLocation:\nContact:`;
 
     const encoded = encodeURIComponent(message);
-    window.open(`https://wa.me/254706076636?text=${encoded}`, '_blank');
+    window.open(`https://wa.me/254707213433?text=${encoded}`, '_blank');
 }
 
 // 5. Product Modal Logic
