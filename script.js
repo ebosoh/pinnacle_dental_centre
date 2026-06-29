@@ -993,7 +993,7 @@ window.addModalItemToCart = function () {
 
 // 5. Booking Form Handling
 const bookingForm = document.getElementById('booking-form');
-const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbw4cft8uDGPy8hjZwfmC-B5eD6gR7LWyaD81cYXCZ93g-dKNsqCpfoh7tFSTKNCf2Mr/exec';
+const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzuu5lo8A60vNV5vSNby36qDJo0Ix8aB8jjuNS1khaQzbTse6tlraPGkgO_G3-kYBUL/exec';
 
 if (bookingForm) {
     bookingForm.addEventListener('submit', async (e) => {

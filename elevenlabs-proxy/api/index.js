@@ -16,7 +16,7 @@ export default async function handler(req, res) {
 
   try {
     // 1. Hardcode your Google Apps Script Web App URL here
-    const GAS_URL = "https://script.google.com/macros/s/AKfycbw4cft8uDGPy8hjZwfmC-B5eD6gR7LWyaD81cYXCZ93g-dKNsqCpfoh7tFSTKNCf2Mr/exec";
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbzuu5lo8A60vNV5vSNby36qDJo0Ix8aB8jjuNS1khaQzbTse6tlraPGkgO_G3-kYBUL/exec";
 
     console.log("Incoming request from ElevenLabs to proxy:", req.body);
     console.log("Query parameters from URL:", req.query);
