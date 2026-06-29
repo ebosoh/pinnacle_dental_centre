@@ -941,7 +941,7 @@ function callGeminiAI(userText, userId, source) {
     return "I'm sorry, I am the assistant for " + CONFIG.CLINIC_NAME + ". We're finishing a quick system update for DMs. Please reach us at " + CONFIG.CLINIC_PHONE + " for any urgent bookings!";
   }
 
-  const url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + apiKey;
+  const url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" + apiKey;
   
   // 1. Get Conversation History from Cache
   const cache = CacheService.getScriptCache();
@@ -950,7 +950,7 @@ function callGeminiAI(userText, userId, source) {
 
   // 2. Define Tools for Gemini (Match the existing GAS functions)
   const tools = [{
-    functionDeclarations: [
+    function_declarations: [
       {
         name: "check_availability",
         description: "Checks for available dental appointment slots on a specific date.",
