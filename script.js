@@ -996,10 +996,84 @@ const bookingForm = document.getElementById('booking-form');
 const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzuu5lo8A60vNV5vSNby36qDJo0Ix8aB8jjuNS1khaQzbTse6tlraPGkgO_G3-kYBUL/exec';
 
 if (bookingForm) {
+    // Clear validation error styling when user types
+    const inputs = bookingForm.querySelectorAll('input, select, textarea');
+    inputs.forEach(input => {
+        input.addEventListener('input', () => {
+            input.classList.remove('ring-2', 'ring-red-500', 'border-red-500');
+        });
+        input.addEventListener('change', () => {
+            input.classList.remove('ring-2', 'ring-red-500', 'border-red-500');
+        });
+    });
+
     bookingForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const submitBtn = bookingForm.querySelector('button[type="submit"]');
         if (!submitBtn) return;
+
+        const formData = new FormData(bookingForm);
+        const name = (formData.get('name') || '').trim();
+        const phone = (formData.get('phone') || '').trim();
+        const service = (formData.get('service') || '').trim();
+        const date = (formData.get('date') || '').trim();
+        const message = (formData.get('message') || '').trim();
+
+        // 1. Mandatory Name Validation
+        if (!name) {
+            alert('Please enter your full name.');
+            const nameInput = bookingForm.querySelector('input[name="name"]');
+            if (nameInput) {
+                nameInput.classList.add('ring-2', 'ring-red-500', 'border-red-500');
+                nameInput.focus();
+            }
+            return;
+        }
+
+        // 2. Mandatory Phone Validation (STRICT: Must not be empty and must have at least 7 digits)
+        const phoneDigits = phone.replace(/\D/g, '');
+        if (!phone || phoneDigits.length < 7 || phoneDigits.length > 15) {
+            alert('A valid phone number is required to book an appointment so our team can reach you. Please enter a valid phone number (e.g. +254 706 076636).');
+            const phoneInput = bookingForm.querySelector('input[name="phone"]');
+            if (phoneInput) {
+                phoneInput.classList.add('ring-2', 'ring-red-500', 'border-red-500');
+                phoneInput.focus();
+            }
+            return;
+        }
+
+        // 3. Mandatory Service Selection
+        if (!service) {
+            alert('Please select a service from the dropdown menu.');
+            const serviceInput = bookingForm.querySelector('select[name="service"]');
+            if (serviceInput) {
+                serviceInput.classList.add('ring-2', 'ring-red-500', 'border-red-500');
+                serviceInput.focus();
+            }
+            return;
+        }
+
+        // 4. Mandatory Date & Time
+        if (!date) {
+            alert('Please select your preferred appointment date and time.');
+            const dateInput = bookingForm.querySelector('input[name="date"]');
+            if (dateInput) {
+                dateInput.classList.add('ring-2', 'ring-red-500', 'border-red-500');
+                dateInput.focus();
+            }
+            return;
+        }
+
+        const selectedDate = new Date(date);
+        if (isNaN(selectedDate.getTime()) || selectedDate < new Date()) {
+            alert('Please select a valid future date and time for your appointment.');
+            const dateInput = bookingForm.querySelector('input[name="date"]');
+            if (dateInput) {
+                dateInput.classList.add('ring-2', 'ring-red-500', 'border-red-500');
+                dateInput.focus();
+            }
+            return;
+        }
 
         const originalBtnText = submitBtn.innerHTML;
 
@@ -1008,18 +1082,17 @@ if (bookingForm) {
         submitBtn.innerHTML = '<i class="lucide-loader-2 animate-spin"></i> Processing...';
         if (window.lucide) lucide.createIcons();
 
-        const formData = new FormData(bookingForm);
         const data = {
             action: 'createBooking',
-            name: formData.get('name'),
-            phone: formData.get('phone'),
-            service: formData.get('service'),
-            date: formData.get('date'),
-            message: formData.get('message') || ''
+            name: name,
+            phone: phone,
+            service: service,
+            date: date,
+            message: message
         };
 
         try {
-            console.log('--- BOOKING SUBMISSION START (JSONP) ---');
+            console.log('--- BOOKING SUBMISSION START (JSONP) ---', data);
 
             // Create a unique callback name
             const callbackName = 'gas_callback_' + Math.round(Math.random() * 1000000);
@@ -1072,12 +1145,12 @@ if (bookingForm) {
             } else if (result.data && result.data.status === 'clash') {
                 alert(result.data.message); // This shows the "Slot already taken" warning
             } else {
-                alert('Error: ' + (result.message || 'Unknown error occurred.'));
+                alert('Error: ' + (result.message || (result.data && result.data.message) || 'Unknown error occurred.'));
             }
 
         } catch (error) {
             console.error('Submission Error:', error);
-            alert('There was an error processing your booking. Please check your internet connection and try again.');
+            alert('There was an error processing your booking: ' + (error.message || 'Please check your internet connection and try again.'));
         } finally {
             submitBtn.disabled = false;
             submitBtn.innerHTML = originalBtnText;

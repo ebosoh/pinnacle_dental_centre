@@ -432,10 +432,30 @@ function jsonResponse(status, data) {
 //  Optional: email, message
 // ============================================================
 function handleBooking(data) {
-  if (!data.name)    throw new Error('Patient name is required.');
-  if (!data.phone)   throw new Error('Phone number is required.');
-  if (!data.service) throw new Error('Service is required.');
-  if (!data.date)    throw new Error('Appointment date/time is required.');
+  if (!data) throw new Error('No booking data provided.');
+
+  const name    = (data.name || '').toString().trim();
+  const phone   = (data.phone || '').toString().trim();
+  const service = (data.service || '').toString().trim();
+  const dateStr = (data.date || '').toString().trim();
+
+  if (!name)    throw new Error('Patient full name is required.');
+  if (!phone)   throw new Error('Patient phone number is strictly required.');
+  
+  // Validate that phone number contains at least 7 digits (prevents dummy/empty phone bypass)
+  const phoneDigits = phone.replace(/\D/g, '');
+  if (phoneDigits.length < 7 || phoneDigits.length > 15) {
+    throw new Error('A valid phone number with at least 7 digits is strictly required.');
+  }
+
+  if (!service) throw new Error('Service is required.');
+  if (!dateStr) throw new Error('Appointment date/time is required.');
+
+  // Update data object with sanitized trimmed values
+  data.name    = name;
+  data.phone   = phone;
+  data.service = service;
+  data.date    = dateStr;
 
   const startTime = new Date(data.date);
   const endTime   = new Date(startTime.getTime() + CONFIG.APPOINTMENT_DURATION_MINUTES * 60 * 1000);
@@ -1089,19 +1109,54 @@ function callGeminiAI(userText, userId, source) {
       part = json.candidates[0].content.parts[0];
     }
 
+    // Clean response to remove any leaked internal reasoning or duplicate sentences
+    const finalCleanText = cleanAIResponse(part.text);
+
     // Update history in cache (last 10 messages)
     history.push({ role: "user", parts: [{ text: userText }] });
-    history.push({ role: "model", parts: [{ text: part.text }] });
+    history.push({ role: "model", parts: [{ text: finalCleanText }] });
     if (history.length > 10) history = history.slice(-10);
     cache.put("history_" + userId, JSON.stringify(history), 3600); // 1 hour expiry
 
-    return part.text;
+    return finalCleanText;
 
   } catch (e) {
     console.error("Gemini AI bridge error: " + e);
     logToSheet('AI Function Error', e.toString());
     return "I'm having a little trouble with my connection, but I'm here! How can I help you today?";
   }
+}
+
+/**
+ * Sanitizes AI output to remove leaked internal thinking, chain-of-thought scratchpad,
+ * meta-reasoning patterns, and duplicate identical sentences.
+ */
+function cleanAIResponse(rawText) {
+  if (!rawText) return '';
+
+  // 1. Remove XML/HTML thought tags like <thought>...</thought> or <thinking>...</thinking>
+  let cleaned = rawText.replace(/<(thought|thinking)>[\s\S]*?<\/\1>/gi, '');
+
+  // 2. Remove meta-reasoning phrases (e.g., "The user said...", "which indicates...", "I should respond...", "as per my instructions...")
+  cleaned = cleaned.replace(/The user said ["'’][^"'’]*["'’],?\s*/gi, '');
+  cleaned = cleaned.replace(/which indicates (they|the patient)[^.!?]*[.!?]*\s*/gi, '');
+  cleaned = cleaned.replace(/I should respond [^.!?]*[.!?]*\s*/gi, '');
+  cleaned = cleaned.replace(/as per my instructions[.!?]*\s*/gi, '');
+  cleaned = cleaned.replace(/(internal reasoning|scratchpad|chain of thought)[:\s][^.!?]*[.!?]*/gi, '');
+
+  // 3. Deduplicate identical sentences (e.g. repeated greetings/questions)
+  const sentences = cleaned.match(/[^.!?]+[.!?]+/g) || [cleaned];
+  const uniqueSentences = [];
+  
+  sentences.forEach(s => {
+    const trimmed = s.trim();
+    if (trimmed && !uniqueSentences.includes(trimmed)) {
+      uniqueSentences.push(trimmed);
+    }
+  });
+
+  const result = uniqueSentences.join(' ').trim();
+  return result || rawText.trim();
 }
 
 // ============================================================
@@ -1431,6 +1486,7 @@ Rules:
 6. Confirm all details before calling create_booking.
 7. If a patient sends inappropriate content, politely steer them back: "I'm only able to help with dental care inquiries and appointments. How can I assist you with your dental needs?"
 8. **Multilingual Support**: Always detect and respond in the same language the patient is using (e.g., if they speak Swahili, respond in Swahili).
+9. ⚠️ **CRITICAL OUTPUT RULE**: NEVER output internal reasoning, chain of thought, self-instructions, or scratchpads (e.g., "The user said...", "I should respond..."). Output ONLY your direct final message to the patient. Do not repeat sentences.
 
 Clinic Milestones & Trust:
 - 10+ Years of Experience in clinical excellence.
