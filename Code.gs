@@ -330,6 +330,35 @@ function doGet(e) {
 
 
 // ============================================================
+//  HELPER: Extract & Normalize Phone Number / WhatsApp User ID
+//  Supports: phone, whatsapp_user_id, caller_id, system__caller_id, user_id, senderId, from
+// ============================================================
+function extractPhone(data) {
+  if (!data || typeof data !== 'object') return '';
+  let raw = data.phone || data.whatsapp_user_id || data.caller_id || 
+            data.system__caller_id || data.user_id || data.senderId || data.from || '';
+  raw = String(raw).trim();
+
+  // Strip 'whatsapp:' prefix if present (Meta / Twilio webhook format)
+  raw = raw.replace(/^whatsapp:\+?/i, '+').replace(/^whatsapp:/i, '');
+
+  // Strip spaces, dashes, parentheses
+  let cleaned = raw.replace(/[\s\-\(\)]/g, '');
+
+  // Normalize Kenyan or international numbers:
+  // e.g. 254706076636 -> +254706076636, 0706076636 -> +254706076636
+  if (/^254\d{9}$/.test(cleaned)) {
+    cleaned = '+' + cleaned;
+  } else if (/^0\d{9}$/.test(cleaned)) {
+    cleaned = '+254' + cleaned.substring(1);
+  } else if (/^\d{10,15}$/.test(cleaned) && !cleaned.startsWith('+')) {
+    cleaned = '+' + cleaned;
+  }
+
+  return cleaned;
+}
+
+// ============================================================
 //  JSON POST HANDLER (ElevenLabs Server Tool webhooks + website)
 // ============================================================
 function doPost(e) {
@@ -343,7 +372,10 @@ function doPost(e) {
 
     // ── Handle ElevenLabs Server Tool calls ─────────────────
     const data = postData;
-    const phone = data.phone || '';
+    const phone = extractPhone(data);
+    if (phone) {
+      data.phone = phone;
+    }
 
     // ── Block check (runs before anything else) ─────────────
     if (phone && isUserBlocked(phone)) {
@@ -435,12 +467,12 @@ function handleBooking(data) {
   if (!data) throw new Error('No booking data provided.');
 
   const name    = (data.name || '').toString().trim();
-  const phone   = (data.phone || '').toString().trim();
+  const phone   = extractPhone(data);
   const service = (data.service || '').toString().trim();
   const dateStr = (data.date || '').toString().trim();
 
   if (!name)    throw new Error('Patient full name is required.');
-  if (!phone)   throw new Error('Patient phone number is strictly required.');
+  if (!phone)   throw new Error('Patient phone number (or WhatsApp User ID) is strictly required.');
   
   // Validate that phone number contains at least 7 digits (prevents dummy/empty phone bypass)
   const phoneDigits = phone.replace(/\D/g, '');
@@ -615,6 +647,9 @@ function handleCheckAvailability(data) {
 //  ID, then deletes the Google Calendar event.
 // ============================================================
 function handleCancelBooking(data) {
+  const phone = extractPhone(data);
+  if (phone) data.phone = phone;
+
   if (!data.phone && !(data.name && data.date)) {
     throw new Error('Please provide your phone number (or name and appointment date) to cancel.');
   }
@@ -728,6 +763,9 @@ function handleCancelBooking(data) {
 //  Optional: service (if changing service too)
 // ============================================================
 function handleRescheduleBooking(data) {
+  const phone = extractPhone(data);
+  if (phone) data.phone = phone;
+
   if (!data.newDate) {
     throw new Error('Please provide the new appointment date and time (newDate field).');
   }
@@ -1351,7 +1389,8 @@ function handleInquiry(data) {
 // ============================================================
 function handleAppointmentEnquiry(data) {
   const name = data.name || '';
-  const phone = data.phone || data.phone_number || '';
+  const phone = extractPhone(data);
+  if (phone) data.phone = phone;
 
   if (!phone && !name) {
     throw new Error('Please provide your phone number or name to look up appointments.');

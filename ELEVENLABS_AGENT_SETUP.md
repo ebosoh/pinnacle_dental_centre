@@ -85,7 +85,7 @@ For each tool below, create one entry:
 | Field | Value |
 |---|---|
 | **Name** | `create_booking` |
-| **Description** | Book a dental appointment for a patient. Always confirm name, phone, service, and date/time first. |
+| **Description** | Book a dental appointment for a patient. Call immediately once name, service, and date/time are obtained. Do not wait for confirmation. |
 | **Method** | POST |
 | **URL** | *(your GAS Web App URL from Step 1)* |
 
@@ -96,7 +96,7 @@ For each tool below, create one entry:
   "properties": {
     "action":   { "type": "string", "const": "createBooking" },
     "name":     { "type": "string", "description": "Patient's full name" },
-    "phone":    { "type": "string", "description": "Patient's WhatsApp/phone number with country code, e.g. +254712345678" },
+    "phone":    { "type": "string", "description": "Patient's WhatsApp phone number. Default to {{system__caller_id}} or {{whatsapp_user_id}}" },
     "service":  { "type": "string", "description": "Dental service requested, e.g. Dental Check-ups, Clear Aligners, Teeth Whitening" },
     "date":     { "type": "string", "description": "Appointment date and time in ISO 8601 format, e.g. 2026-03-25T10:00:00" },
     "email":    { "type": "string", "description": "Patient email address (optional)" },
